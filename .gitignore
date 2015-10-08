@@ -1,0 +1,8 @@
+
+/bin/www
+movies.csv
+
+#shelf life will remain dependent on outside app support
+node_modules
+
+
