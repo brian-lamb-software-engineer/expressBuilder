@@ -1,8 +1,9 @@
 
-/bin/www
 movies.csv
-
-#shelf life will remain dependent on outside app support
-node_modules
-
-
+node_modules/*
+www/*
+*.zip
+*.rar
+*.gz
+*_log
+*.log
