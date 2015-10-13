@@ -1,0 +1,42 @@
+extends ../layout
+
+block content
+  h1.
+    Movie ID #{movie._id}
+  form(action='/movies/#{movie._id}/edit', method='post', name='updatemovie', enctype='application/x-www-form-urlencoded')
+
+strings
+
+    p Name:
+      input#inputName(type='text', value='#{movie.name}', name='name')
+
+    p Starring:
+      input#inputName(type='text', value='#{movie.name}', name='name')
+
+    p Notes:
+      input#inputName(type='text', value='#{movie.name}', name='name')
+
+Number
+  p Year:
+    input#inputYear(type='number', value='#{movie.year}', name='year')
+
+
+Boolean
+  p Is this retail or home recorded?
+    input#inputIsLoved(type='checkbox',name='isloved', checked=('#{movie.isloved}' === 'true' ? "checked" : undefined))
+
+
+Date
+
+    p DOB:
+      input#inputDob(type='date',value='#{moviedob}',name='dob')
+
+hidden
+
+    p
+      input(type='hidden',value='PUT',name='_method')
+
+submit
+    p
+      button#btnSubmit(type='submit').
+        Update

@@ -6,49 +6,47 @@ var express = require('express'),
   cookieParser = require('cookie-parser'),
   bodyParser = require('body-parser'),
   sass = require('node-sass'),
-
+  bootstrap = require('express-bootstrap-service'),
   db = require('./js/model_db'),
   blob = require('./js/model_blobs'),
-  routes = require('./js/route_index'),
-  users = require('./js/rouite_users'),
-  blobs = require('./js/route_blobs');
+  routes = require('./js/controller_index'),
+  blobs = require('./js/controller_blobs');
 
-var app = module.exports.app = exports.app = express();
+var app = express();
 
-// new bundle setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('views', path.join('src/blobBundle', 'views'));
-
-
 app.set('view engine', 'jade');
-
-// uncomment after placing your favicon in /www
-//app.use(favicon(path.join(__dirname, 'www', 'favicon.ico')));
+//app.use(favicon(path.join(__dirname, 'www', 'favicon.ico'))); // uncomment after placing your favicon in /www
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'www')));
+app.use(bootstrap.serve);
+bootstrap.init({
+    minified: false
+});
+app.use(require('connect-livereload')( // //you won't need 'connect-livereload' if you have livereload plugin for your browser
+  {
+    port: 35729,
+    src: 'http://192.168.1.10:35729/livereload.js?snipver=1'
+  }
+));
+app.use(express.static('public'));
 
+//routes
 app.use('/', routes);
-app.use('/users', users);
+// app.use('/users', users);
 app.use('/blobs', blobs); //can point to / instead for SPA (look at res.redirect's)
+app.use("/css", express.static(__dirname + '/css'));
+app.use("/js", express.static(__dirname + '/js'));
 
-// //you won't need 'connect-livereload' if you have livereload plugin for your browser
-// app.use(require('connect-livereload')());
-
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function(req, res, next) { // catch 404 and forward to error handler
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
 
-// error handlers
-
-// development error handler
-// will print stacktrace
-if (app.get('env') === 'development') {
+if (app.get('env') === 'development') { // development error handler, will print stacktrace
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.render('error', {
@@ -58,15 +56,12 @@ if (app.get('env') === 'development') {
   });
 }
 
-// production error handler
-// no stacktraces leaked to user
-app.use(function(err, req, res, next) {
+app.use(function(err, req, res, next) { // production error handler, no stacktraces leaked to user
   res.status(err.status || 500);
   res.render('error', {
     message: err.message,
     error: {}
   });
 });
-
 
 module.exports = app;

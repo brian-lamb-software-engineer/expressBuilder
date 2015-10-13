@@ -1,9 +1,11 @@
 
 movies.csv
 node_modules/*
-www/*
+vendor/*
+public/*
 *.zip
 *.rar
 *.gz
 *_log
 *.log
+*~.*
