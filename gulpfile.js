@@ -5,8 +5,8 @@
  * what do we want gulp to do today folks?
  * good info - https://gist.github.com/hansent/9417349
  *
- * Complete Task list
- * ------------------
+ * Parent Task list
+ * ----------------
  * -default         (runs both build and develop)
  * -build           (builds src into www, ready to be served)
  * -develop         (Includes watch, and loads server)
@@ -15,7 +15,9 @@
  * Include gulp, and plugins
  */
 var paths = {
-  appjs:      './src/app.js',
+  vendor:     './vendor/',
+  src:        './src/',
+  appjs:      './app.js',
   models:     './src/models/*.js',
   controllers:'./src/controllers/*.js',
   jade:      ['./src/views/**/*.jade'],
@@ -24,7 +26,6 @@ var paths = {
   css:        './src/assets/*.css',
   pub:        './www/',
   del:       [
-              './www/app.js', //app.js (recompiled via gulp)
               './www/js/*.js', //all js (recompiled via gulp)
               './www/css/*.css', //all css (recompiled via gulp)
               './www/v_*', //the version tag (recreated via gulp)
@@ -56,14 +57,12 @@ gulp.task('default', ['develop', 'build']);
 /**
  * Task build
  */
-gulp.task('build', ['app-js', 'client-js', 'process-css', 'jadepub', 'add-version-tag']);
+gulp.task('build', ['server-js', 'client-js', 'process-css', 'jadepub', 'add-version-tag']);
 
-gulp.task('app-js', ['clean'], function(){
+gulp.task('server-js', ['clean'], function(){
   return gulp.src(paths.appjs)
     .pipe(jshint())
-    .pipe(jshint.reporter('jshint-stylish'))
-    .pipe(uglify())
-    .pipe(gulp.dest(paths.pub));
+    .pipe(jshint.reporter('jshint-stylish'));
 });
 
 gulp.task('client-js', ['clean'], function(){
@@ -89,6 +88,7 @@ gulp.task('process-css', function(){
     .pipe(sass().on('error', sass.logError))
     .pipe(concat('~styles.css'))
     .pipe(gulp.dest('/tmp'));
+  //this one is the output, if your adding more css, add it above this one for ease
   var css = gulp.src([paths.css, '/tmp/~styles.css'])
     .pipe(concat('styles.css'))
     .pipe(minifyCss())
@@ -105,7 +105,8 @@ gulp.task('jadepub', function() {
 gulp.task('add-version-tag', ['clean'], function(cb){
   dateIs = new Date(),
   dateStrIs = dateIs.toString(),
-  nameStrIs = dateIs.getUTCMonth() + 1 + '_' + dateIs.getUTCDate() + '_' + dateIs.getUTCHours() + '_' + dateIs.getMinutes();
+  nameStrIs = dateIs.getUTCMonth() + 1 + '_' + dateIs.getUTCDate() + '_' +
+    dateIs.getUTCHours() + '_' + dateIs.getMinutes();
    file('v_' + nameStrIs, 'Gulped! \n' + dateStrIs) //make a new version tag, for the tag gun
       .pipe(gulp.dest(paths.pub)); //apply the sticker..
   return cb();
@@ -117,7 +118,7 @@ gulp.task('add-version-tag', ['clean'], function(cb){
 gulp.task('develop', ['lint-js', 'gls', 'watch']);
 
 gulp.task('lint-js', function(){
-  return gulp.src('src/**.*.js')
+  return gulp.src([paths.src + '**.*.js', '*.js'])
     .pipe(jshint())
     .pipe(jshint.reporter('jshint-stylish'));
 });
@@ -154,9 +155,9 @@ gulp.task('rewatch-jade', ['jadepub'] );
 /**
  * Task compile-vendors
  */
-gulp.task('compile-vendors', ['build-bootstrap', 'build-jquery']);
+gulp.task('compile-vendors', ['vendor-bootstrap', 'vendor-jquery', 'vendor-fontawesome']);
 
-gulp.task('build-jquery', function(){
+gulp.task('vendor-jquery', function(){
   return gulp.src('./node_modules/jquery/src')
   .pipe(jquery({
     release: 1,
@@ -165,24 +166,34 @@ gulp.task('build-jquery', function(){
   .pipe(gulp.dest('./vendor/jquery/')); // creates jquery.custom.js (unminified)
 });
 
-gulp.task('build-bootstrap', function(){
+gulp.task('vendor-fontawesome', function(){
+  //copy entire src to recompile later after a variables.custom.scss is added
+  return gulp
+    .src('./node_modules/font-awesome/')
+    .pipe(gulp.dest('./vendor/font-awesome/'));
+  // var fonts = gulp.src('./node_modules/font-awesome/fonts/*')
+  //   .pipe(gulp.dest(paths.vendor + 'font-awesome/fonts/'));
+  // return merge(scss, fonts);
+});
+
+gulp.task('vendor-bootstrap', function(){
   var bootstrapJs = gulp.src([
     './node_modules/bootstrap-sass/assets/javascripts/bootstrap-sprockets.js',
     './node_modules/bootstrap-sass/assets/javascripts/bootstrap.js'
-  ])
-  .pipe(concat('bootstrap.custom.js'))
-  .pipe(gulp.dest('./vendor/bootstrap/'));
+    ])
+    .pipe(concat('bootstrap.custom.js'))
+    .pipe(gulp.dest('./vendor/bootstrap/'));
   var bootstrapCss = gulp.src([
     './node_modules/bootstrap-sass/assets/stylesheets/_bootstrap-sprockets.scss',
     './node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss'
-  ])
-  .pipe(concat('bootstrap.custom.scss'))
-  .pipe(sass().on('error', sass.logError))
-  .pipe(gulp.dest('./vendor/bootstrap/'));
+    ])
+    .pipe(concat('bootstrap.custom.scss'))
+    .pipe(sass().on('error', sass.logError))
+    .pipe(gulp.dest('./vendor/bootstrap/'));
   var bootstrapFonts = gulp.src('./node_modules/bootstrap-sass/assets/fonts/bootstrap/glyph*.*')
-  .pipe(gulp.dest('./vendor/bootstrap/fonts'));
+    .pipe(gulp.dest('./vendor/bootstrap/fonts'));
   // var bootstrapImages = gulp.src(['./node_modules/bootstrap-sass/assets/images'])
-  // .pipe(gulp.dest('.//vendor/bootstrap/images/'));
+    // .pipe(gulp.dest('.//vendor/bootstrap/images/'));
   return merge(bootstrapJs, bootstrapCss, bootstrapFonts);
 });
 
@@ -191,7 +202,7 @@ gulp.task('build-bootstrap', function(){
  */
  //used in develop and watch
 gulp.task('clean', function(cb){
-  del(paths.del) //all app output is built here, so clean-slate it..
+  del(paths.del); //all app output is built here, so clean-slate it..
   setTimeout(function () {
     return cb();
   }, 7000);
@@ -213,8 +224,8 @@ gulp.task('jadecompile', function() {
       client: true
     }))
     .pipe(rename(function(path){
-      path.extname = ".jade"
+      path.extname = ".jade";
     }))
-    .pipe(gulp.dest(paths.pub + 'views/'))
+    .pipe(gulp.dest(paths.pub + 'views/'));
     //.pipe( livereload( server ));
 });

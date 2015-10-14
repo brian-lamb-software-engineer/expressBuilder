@@ -2,7 +2,7 @@
 
 // dependencies.
 var server,
-  app = require('../www/app.js'),
+  app = require('../app.js'),
   debug = require('debug')('momsnewdb:server'),
   http = require('http'),
   port = normalizePort(process.env.PORT || '3000'); //Get port from environment and store in Express.

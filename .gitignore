@@ -1,8 +1,8 @@
 
 movies.csv
-node_modules/*
-vendor/*
-public/*
+node_modules/
+/vendor
+www
 *.zip
 *.rar
 *.gz

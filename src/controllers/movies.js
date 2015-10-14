@@ -2,6 +2,9 @@
 // includes all crud operations
 // rest calls can respond via
 
+/**
+{"Title":"Oblivion","Year":"2013","Rated":"PG-13","Released":"19 Apr 2013","Runtime":"124 min","Genre":"Action, Adventure, Mystery","Director":"Joseph Kosinski","Writer":"Karl Gajdusek (screenplay), Michael Arndt (screenplay), Joseph Kosinski (graphic novel original story)","Actors":"Tom Cruise, Morgan Freeman, Olga Kurylenko, Andrea Riseborough","Plot":"A veteran assigned to extract Earth's remaining resources begins to question what he knows about his mission and himself.","Language":"English","Country":"USA","Awards":"11 nominations.","Poster":"http://ia.media-imdb.com/images/M/MV5BMTQwMDY0MTA4MF5BMl5BanBnXkFtZTcwNzI3MDgxOQ@@._V1_SX300.jpg","Metascore":"54","imdbRating":"7.0","imdbVotes":"351,549","imdbID":"tt1483013","Type":"movie","Response":"True"}
+*/
 var express = require('express'),
     router = express.Router(),
     mongoose = require('mongoose'),

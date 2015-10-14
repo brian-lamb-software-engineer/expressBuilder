@@ -1,6 +1,8 @@
-// blobs controller
-// includes all crud operations
-// rest calls can respond via
+/**
+ * Blobs controller / RESTful API CRUD  / router
+ * see for more info -https://scotch.io/tutorials/using-mongoosejs-in-node-js-and-mongodb-applications
+ * includes all crud operations
+ **/
 
 var express = require('express'),
     router = express.Router(),
@@ -19,10 +21,10 @@ router.use(methodOverride(function(req, res){
       }
 }))
 
-//crud
+//crud and REST API
 //build the REST operations at the base for blobs
-router.route('/')
-  .get(function(req, res, next) {
+router.route('/').get(function(req, res, next) {
+
       mongoose.model('Blob').find({}, function(err, blobs) {
         if(!err){
           //respond to both HTML and JSON. JSON responses require 'Accept: application/json;' in the Request Header
@@ -41,6 +43,7 @@ router.route('/')
           return  console.error(err);
         }
       });
+
     })
     .post( function(req, res){
       //get vals from post, via forms or api calls
@@ -105,6 +108,11 @@ router.route('/')
     });
 
     //get blob by id, for display
+
+    // router.get('/:id', crud, function(req, res) {
+    //   res.json(blob);
+    // }
+
     router.route('/:id')
       .get(function(req, res) {
         mongoose.model('Blob').findById(req.id, function(err, blob){
