@@ -1,11 +1,33 @@
 
+# ignore db file
 movies.csv
+
+# ignore all node modules
 node_modules/
-/vendor
-www
-*.zip
-*.rar
-*.gz
-*_log
-*.log
-*~.*
+
+# We definitely want our vendors backed up now, (so leave commented), since they
+# are not being copied to src/ directory anymore, was kind of counter intuitive
+# like that before. Feel free to delete any unneeded vendor files before
+# git adding though, so far thats the entire vendor/ contents except for the
+# sass variables file. all else can be deleted before commiting, however allowing
+# them to commit like this holds the idea that the vendors will at least always
+# be available for use in this working condition for the duration of the
+# shelf-life of the software.
+# vendor/
+
+# these files are dynamically created, therefore don't need to be part of the repo.
+vendor/dummy.js
+
+# ignore the build dir, that would be nothing but dead weight, no source in there!
+www/
+
+# ignore certain file types
+* .zip
+* .rar
+* .gz
+* _log
+* .log
+* ~.*
+
+#intellij
+.idea/
