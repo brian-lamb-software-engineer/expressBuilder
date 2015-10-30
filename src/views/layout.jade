@@ -2,25 +2,32 @@ doctype html
 html(lang=en)
   head
     title='MMDB Moms Movie Database'
-    link(rel='stylesheet', href='css/styles.css')
-    script(src='js/head.js')
+    link(rel='stylesheet', href='/css/styles.css')
+    script(src='/js/head.js')
   body
-    header
-      p
-        ul
-          li
-            a(href='/') Home
-          li
-            a(href='/blobs') Blobs
-          li
-            a(href='/movies') Movies
-          li
-            a(href='/tests') Tests
-    div
-      block content
-    footer
-      p
-        ul
-          li
-            a(href='/') Home
-    script(src='js/foot.js')
+    header.container-fluid
+      div.row
+        div.col-md-2
+        div.col-md-8
+          ul
+        p
+          ul.nav.nav-pills
+            li
+              a(href='/') Home
+            li
+              a(href='/blobs') Blobs
+            li
+              a(href='/movies') Movies
+        div.col-md-2
+    main.container-fluid
+        block content
+    footer.container-fluid
+      div.row
+        div.col-md-2
+        div.col-md-8
+          p
+            ul.list-inline
+              li
+                a(href='/') Home
+        div.col-md-8
+    script(src='/js/foot.js')

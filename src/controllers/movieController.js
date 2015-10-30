@@ -24,26 +24,36 @@ router.use(methodOverride(function(req, res){
 
 //crud
 //build the REST operations at the base for movies
-router.route('/')
-  .get(function(req, res, next) {
-      mongoose.model('Movie').find({}, function(err, movies) {
-        if(!err){
-          //respond to both HTML and JSON. JSON responses require 'Accept: application/json;' in the Request Header
-          res.format({
-            html: function(){
-              res.render('movies/index', {
-                title: 'All my movies',
-                "movies": movies
-              });
-            },
-            json: function(){
-              res.json(infophotos);
-            }
-          })
-        } else {
-          return  console.error(err);
-        }
-      });
+router.route('/').get(function(req, res, next) {
+    // @todo enable paginate /:page?*
+    // var resultLimit = 10,
+      // page = req.param('page') >= 0 ? req.param('page') : 1;
+
+      mongoose.model('Movie')
+        .find()
+        //.select('name')
+        .limit(100)
+        .skip(20) //as demo, incidentally they have ugly names
+        .sort({name: 'asc'})
+        .exec(function(err, movies) {
+          if(!err){
+            //respond to both HTML and JSON. JSON responses require 'Accept: application/json;' in the Request Header
+            res.format({
+              html: function(){
+                //req param page should be available (movie._page)
+                res.render('movies/index', {
+                  title: 'All movies',
+                  "movies": movies
+                });
+              },
+              json: function(){
+                res.json(infophotos);
+              }
+            })
+          } else {
+            return  console.error(err);
+          }
+        })
     })
     .post( function(req, res){
       //get vals from post, via forms or api calls

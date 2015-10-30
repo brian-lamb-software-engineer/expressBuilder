@@ -10,3 +10,18 @@ var movieSchema = new mongoose.Schema({
   updated: {type: Date, default: Date.now}
 });
 mongoose.model('Movie', movieSchema);
+
+
+/**
+ * Getters
+ */
+// var getTags = function (tags) {
+//   return tags.join(',');
+// };
+
+/**
+ * Setters
+ */
+ // var setTags = function (tags) {
+ //   return tags.split(',');
+ // };

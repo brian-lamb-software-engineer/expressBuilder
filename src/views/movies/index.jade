@@ -1,21 +1,22 @@
 extends ../layout
 
 block content
-  h1.
+  h2.
     #{title}
-  ul
-    - each blob, i in blobs
-        li
-          =blob.name
-          =blob.badge
-          =blob.dob
-          =blob.isloved
-          =blob._id
-          form(action='/blobs/#{blob._id}/edit', method='post', enctype='application/x-www-form-urlencoded')
-            input(type='hidden',value='DELETE',name='_method')
-            button(type='submit').
-              Delete
-          p
-            a(href='/blobs/#{blob._id}/edit') Edit
-          p
-            a(href='/blobs/#{blob._id}') Show
+  each movie, i in movies
+    div.panel.panel-default
+      div.panel-heading
+        panel-title.h4
+          a(href='/movies/#{movie._id}') #{movie.name}
+          if movie.year
+              i.h6 #{movie.year}
+        i.pull-right
+          a(href='/movies/#{movie._id}/edit') Edit
+      div.panel-body
+          if movie.notes
+              p #{movie.notes}
+          if movie.starring
+              h6 #{movie.starring}
+          input(type='hidden',value='DELETE',name='_method')
+          button(type='submit').
+            Delete

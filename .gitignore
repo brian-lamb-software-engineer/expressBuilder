@@ -1,4 +1,7 @@
 
+# ignore the etc directory, contains sensitive params, and maybe env specific stuff
+etc/
+
 # ignore db file
 movies.csv
 

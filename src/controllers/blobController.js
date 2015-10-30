@@ -35,8 +35,9 @@ router.route('/').get(function(req, res, next) {
                 "blobs": blobs
               });
             },
-            json: function(){
-              res.json(infophotos);
+            json: function(dataStuff){
+              // res.json(infophotos);
+              res.json(dataStuff);
             }
           })
         } else {

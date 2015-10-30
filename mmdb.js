@@ -56,10 +56,19 @@
  * @resource http://gulpjs.com/
  * @resource: https://en.wikipedia.org/wiki/Service-oriented_architecture
  * @resource: https://en.wikipedia.org/wiki/Representational_state_transfer
+ * @resource: https://github.com/madhums/node-express-mongoose-demo
+ * @resource: http://jasmine.github.io/2.2/introduction.html
  *
  * @ todo documentor for api
- * @ todo coffee native default
  * @ todo unit test library vendor example
+ * @ todo ssl http://www.hacksparrow.com/express-js-https.html
+
+ error database
+ --------------
+when starting server, client-js task, an error;
+ throw
+ ^
+      (this error was related to a missing require, in this case was a typo)
  */
 var express =   require('express'),
   path =        require('path'),
@@ -70,12 +79,13 @@ var express =   require('express'),
   compression = require('compression'),
   sass =        require('node-sass'),
   bootstrap =   require('express-bootstrap-service'),
-  routes =      require('./www/js/controller_index'),
-  db =          require('./www/js/model_db'),
-  movies =      require('./www/js/controller_movies'),
-  movie =       require('./www/js/model_movies'),
-  blobs =       require('./www/js/controller_blobs'),
-  blob =        require('./www/js/model_blobs'),
+  routes =      require('./www/js/indexController'),
+  db =          require('./www/js/dbMongoose'),
+  //db =          require('./www/js/dbMongoose'),
+  movies =      require('./www/js/movieController'),
+  movie =       require('./www/js/movieModel'),
+  blobs =       require('./www/js/blobController'),
+  blob =        require('./www/js/blobModel'),
   app = express();
 
 /**
@@ -104,6 +114,30 @@ app.use(require('connect-livereload')({
 }));
 
 app.use(express.static('www'));
+
+
+//some security
+app.all('/*', function(req, res, next) {
+  // CORS
+  res.header("Access-Control-Allow-Origin", "*"); // restrict it to the required domain
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-type,Accept,X-Access-Token,X-Key');
+  if (req.method == 'OPTIONS') {
+    res.status(200).end();
+  } else {
+    next();
+  }
+});
+
+// Auth Middleware - This will check if the token is valid
+// Only the requests that start with /api/v1/* will be checked for the token.
+// Any URL's that do not follow the below pattern should be avoided unless you
+// are sure that authentication is not needed
+// app.all('/api/v1/*', [require('./js/validateRequestService')]);
+
+
+
+
 app.use('/', routes);  //Note, ALL use statements can point to '/' instead for SPA (look at res.redirect's)
 //app.use('/users', users);
 app.use('/blobs', blobs); // Blobs CRUD
@@ -111,6 +145,7 @@ app.use('/movies', movies); // Movies CRUD
 app.use("/css", express.static(__dirname + '/css')); //assets
 app.use("/js", express.static(__dirname + '/js')); //assets
 app.use("/images", express.static(__dirname + '/images')); //assets
+app.use("/fonts", express.static(__dirname + '/fonts')); //assets
 
 // uncomment following after placing your favicon in /www
 //app.use(favicon(path.join(__dirname, 'www', 'favicon.ico')));

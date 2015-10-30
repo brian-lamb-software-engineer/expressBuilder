@@ -3,14 +3,16 @@ extends ../layout
 block content
   h1.
     #{title}
-  form#formAddBlob(name='addBlob', method='post',action="/blobs")
+  form#formAddMovie(name='addMovie', method='post',action="/movies")
     p Name:
-      input#inputName(type="text", placeholder="eg. John Smith", name="name")
-    p Badge:
-      input#inputBadge(type="number", placeholder="eg. 123456", name="badge")
-    p DOB:
-      input#inputDOB(type="date", name="dob")
-    p Are you loved?
-      input#inputIsLoved(type="checkbox", name="isloved")
+      input#inputName(type='text', placeholder="eg. 42 Winds",  name='name')
+    p Starring:
+      input#inputStarring(type='text', placeholder="eg. Paul Newman, Katherine Hepburn",  name='starring')
+    p Notes:
+      input#inputNotes(type='text', placeholder="eg. with commercials",  name='notes')
+    p Year:
+      input#inputYear(type='number', placeholder="eg. 1972",  name='year')
+    p Is this retail (checked) default is unchecked if its recorded )?
+      input#retail(type='checkbox',name='retail')
     p
-      button#butSubmit(type="submit") submit
+      button#btnSubmit(type='submit') submit

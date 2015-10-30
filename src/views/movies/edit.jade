@@ -4,39 +4,20 @@ block content
   h1.
     Movie ID #{movie._id}
   form(action='/movies/#{movie._id}/edit', method='post', name='updatemovie', enctype='application/x-www-form-urlencoded')
-
-strings
-
-    p Name:
-      input#inputName(type='text', value='#{movie.name}', name='name')
-
+    div.input-prepend
+      span.add-on
+        i.icon-envelope
+        input#inputName(type='text', value='#{movie.name}', name='name')
     p Starring:
-      input#inputName(type='text', value='#{movie.name}', name='name')
-
+      input#inputStarring(type='text', value='#{movie.starring}', name='starring')
     p Notes:
-      input#inputName(type='text', value='#{movie.name}', name='name')
-
-Number
-  p Year:
+      input#inputNotes(type='text', value='#{movie.notes}', name='notes')
+    p Year:
     input#inputYear(type='number', value='#{movie.year}', name='year')
-
-
-Boolean
-  p Is this retail or home recorded?
-    input#inputIsLoved(type='checkbox',name='isloved', checked=('#{movie.isloved}' === 'true' ? "checked" : undefined))
-
-
-Date
-
-    p DOB:
-      input#inputDob(type='date',value='#{moviedob}',name='dob')
-
-hidden
-
+    p Is this retail?
+    input#inputRetail(type='checkbox',name='retail', checked=('#{movie.retail}' === 'true' ? "checked" : undefined))
     p
       input(type='hidden',value='PUT',name='_method')
-
-submit
     p
       button#btnSubmit(type='submit').
         Update

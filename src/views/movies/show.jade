@@ -2,8 +2,9 @@ extends ../layout
 
 block content
   h1.
-    Infophoto #{blob._id}
-  p Name: #{blob.name}
-  p Badge: #{blob.badge}
-  p DOB: #{blob.dob}
-  p Is Loved: #{blob.isloved}
+    Name: #{movie.name}
+  p Starring: #{movie.starring}
+  p Notes: #{movie.notes}
+  p Year: #{movie.year}
+  p Retail: #{movie.retail} (is boolean, change to checkbox or yes no, or something)
+  Blob ID #{movie._id}

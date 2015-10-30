@@ -14,6 +14,7 @@
    *                  ready to be served)
    * -develop         (Includes watch, and loads server, and does not build or
                       compile)
+   * -all             runs compile-vendor, then build, then develop
    * -default         (runs develop only)
  *
  * Main usage commands:
@@ -57,10 +58,12 @@ var paths = {
   src:        './src/',
   pub:        './www/', // the build dir
   vendor:     './vendor/',
-  models:     './src/models/',
   controllers:'./src/controllers/',
+  models:     './src/models/',
+  services:   './src/service-singletons/',
   jade:       './src/views/',
-  assets:     'src/public/',
+  assets:     'src/assets/',
+  tests:     'tests/',
   // the clean(delete) path's, mostly for build dir add whatever you want,
   // './www' works as a fell swoop.  you cant add the vendors to this or you will
   // end up having to mess with alot of things to accomodate since these paths
@@ -94,23 +97,37 @@ var paths = {
   sass =          require('gulp-sass'),
   jade =          require('gulp-jade'),
   jadelint =      require('gulp-jadelint'),
-  jQueryBuilder = require('jquery-custom');
+  jQueryBuilder = require('jquery-custom'),
+  coffee =        require('gulp-coffee'),
+  jasmine =        require('gulp-jasmine');
 
-      /**
-       * Task default
-       */
+/**
+ * Task default
+ */
 gulp.task('default', ['develop']);
 
-      /**
-       * Task build
-       * This runs tasks like compile, lint, and pre proccesing on all local
-       * source files, and any needed ./vendor files, then outputs the web
-       * application to the build dir in a working state. After the build,
-       * either the develop task can be ran to launch a live reload server to
-       * where the site becomes immediately available to a web browser.
-       * Alternatively the command 'npm start' can be ran to launch the apps
-       * default server.
-       */
+/**
+ * Task all
+ * @info run this task when you want to immediately run a file fix, during
+ * development.  Alternatively, you can just run the following on the command
+ * line:
+ * $ gulp compile-vendors; gulp build; gulp develop
+ * That command renders this task uneneeded.  Boils down to preference.
+ */
+gulp.task('all', function(){
+    return runSequence('compile-vendors', 'build', 'develop');
+})
+
+/**
+ * Task build
+ * This runs tasks like compile, lint, and pre proccesing on all local
+ * source files, and any needed ./vendor files, then outputs the web
+ * application to the build dir in a working state. After the build,
+ * either the develop task can be ran to launch a live reload server to
+ * where the site becomes immediately available to a web browser.
+ * Alternatively the command 'npm start' can be ran to launch the apps
+ * default server.
+ */
 gulp.task('build', function(callback){
     runSequence('clean', ['server-js', 'client-js', 'process-css', 'lintcopy-jade',
                 'process-fonts', 'add-version-tag'],
@@ -133,58 +150,84 @@ gulp.task('server-js', function(){
     .pipe(jshint.reporter('jshint-stylish'));
 });
 
+gulp.task('coffee-js', function(){
+  return gulp.src(paths.src + '**/*.coffee')
+        .pipe(coffee({bare:true}).on('error', gutil.log))
+        .pipe(rename(function (path) {
+          path.extname = ".coffee.js"
+        }))
+        .pipe(gulp.dest(paths.src));
+})
+
 /**
  * Task client-js
  * These are the js source files for the full client-side of your web application.
  */
-gulp.task('client-js', function(){
-  // model modules
+gulp.task('client-js', ['coffee-js'], function(){
+
+  // models, loaded separatelys per route
   var jsModels = gulp.src(paths.models + '*.js')
-    .pipe(rename({dirname: '', prefix: 'model_'}))
     .pipe(jshint())
-    .pipe(uglify())
+    // .pipe(uglify()) //breaks, why?
     .pipe(gulp.dest(paths.pub + 'js/'));
-  //controller modules
+
+  // services, loaded separately
+  var jsServices = gulp.src(paths.services + '*.js')
+    .pipe(jshint())
+    // .pipe(uglify()) //breaks, why?
+    .pipe(gulp.dest(paths.pub + 'js/'));
+
+  // controllers, loaded separately from routing
   var jsControllers = gulp.src(paths.controllers + '*.js')
-    .pipe(rename({dirname: '', prefix: 'controller_'}))
     .pipe(jshint())
-    .pipe(uglify())
+    // .pipe(uglify()) //breaks, why?
     .pipe(gulp.dest(paths.pub + 'js/'));
-  // head js
+
+  // head js, inject your scripts here
   var srcHeadJs = gulp.src([
+      paths.services + 'browserDetect.js',
       paths.vendor + 'jquery/jquery-custom.js',
       paths.vendor + 'bootstrap/bootstrap.custom.js'
   ])
     .pipe(jshint())
     .pipe(concat('~srcHead.js'))
     .pipe(gulp.dest('/tmp'));
+
+  // vendor belonging in head, inject your vendors here
   var vendorHeadJs = gulp.src(paths.vendor + 'js/dummy.js')
     .pipe(jshint())
     .pipe(concat('~vendorHead.js'))
     .pipe(gulp.dest('/tmp'));
+
+  // load this file only on your template head
   var pubJsHead = merge(vendorHeadJs,srcHeadJs)
     .pipe(jshint())
     .pipe(concat('head.js'))
-    .pipe(uglify())
+    // .pipe(uglify()) //breaks, why?
     .pipe(gulp.dest(paths.pub + 'js/'));
-  // foot js
+
+  // foot js, inject your scripts here
   var srcFootJs = gulp.src([paths.assets + 'js/dummy.js'])
     .pipe(jshint())
     .pipe(concat('~srcFoot.js'))
     .pipe(gulp.dest('/tmp'));
+
+  //vendors which can be postponed to the foot, inject your vendors here
   var vendorFootJs = gulp.src([
       paths.assets + 'js/dummy.js',
   ])
     .pipe(jshint())
     .pipe(concat('~vendorFoot.js'))
     .pipe(gulp.dest('/tmp'));
+
+  //output file, load this file only in your foot
   var pubJsFoot = merge(vendorFootJs, srcFootJs)
     // .pipe(order(vendorFootJs))
     .pipe(concat('foot.js'))
     .pipe(uglify())
     .pipe(gulp.dest(paths.pub + 'js/'));
   // run
-  return merge(jsControllers, jsModels, srcHeadJs, vendorHeadJs, srcFootJs,
+  return merge(jsServices, jsControllers, jsModels, srcHeadJs, vendorHeadJs, srcFootJs,
       vendorFootJs, pubJsHead, pubJsFoot);
 });
 
@@ -194,18 +237,20 @@ gulp.task('client-js', function(){
  * @todo 	responsive includes per @media, and called via loader.scss
  */
 gulp.task('process-css', function(){
-  var faScssPath = paths.vendor + 'font-awesome/scss/font-awesome.scss',
-    localScssPath = paths.assets + 'scss/*.scss',
+  var localScssPath = paths.assets + 'scss/*.scss',
     localCssPath = paths.assets + 'css/*.css',
     outputCssName = 'styles.css';
-  var vendorSass =  gulp.src(faScssPath)
-    .pipe(sass().on('error', sass.logError));
+
+  // sass to process, normally only local stuff, vendors can be @imported
   var localSass = gulp.src([localScssPath]) //this is the one that contains the code we ant loaded LAST
     .pipe(sass().on('error', sass.logError));
+
+  // css to process, normally local, vendors can be imported
   var localCss = gulp.src([localCssPath]);
-  return merge(vendorSass, localCss, localSass) //this order was NOT working, so had to install gulp-order for this alone
+
+  // run it
+  return merge(localCss, localSass) //this order was NOT working, so had to install gulp-order for this alone
     .pipe(order([
-      paths.assets + faScssPath,
       paths.assets + localCssPath,
       paths.assets + localScssPath //this is the one that contains the code we ant loaded LAST
     ]))
@@ -254,11 +299,16 @@ gulp.task('add-version-tag', function(cb){
   return cb();
 });
 
-      /**
-       * Task develop
-       */
-gulp.task('develop', ['lint-js', 'gls', 'watch'], function(){
+/**
+ * Task develop
+ */
+gulp.task('develop', ['jasmine-tests', 'lint-js', 'gls', 'watch'], function(){
   gutil.log('Running Develop task.  This is the final needed task.  Get to work!');
+});
+
+gulp.task('jasmine-tests', function () {
+    return gulp.src(paths.tests + 'tests.js')
+        .pipe(jasmine());
 });
 
 /**
@@ -280,6 +330,7 @@ gulp.task('gls', function(){
     'begin development!');
     var server = gls.new('bin/www');
     server.start();
+
     //attempt to get an auto refresh after compile
     //server.notify().bind(server);
     gulp.watch(paths.pub + 'css/*.css', function(file){
@@ -288,7 +339,7 @@ gulp.task('gls', function(){
     gulp.watch(paths.pub + 'views/**/*.jade', function(file){
       server.notify.apply(server, [file]);
     });
-    gulp.watch(paths.pub + '**/*.js', server.start.bind(server));
+    gulp.watch(paths.pub + '*.js', server.start.bind(server)); //watch the server too
   }, 1000);
  });
 
@@ -301,6 +352,7 @@ gulp.task('watch', function(){
     gulp.watch(paths.assets + 'js/', ['rewatch-js']);
     gulp.watch(paths.controllers + '*.js', ['rewatch-js']);
     gulp.watch(paths.models + '*.js', ['rewatch-js']);
+    gulp.watch(paths.services + '*.js', ['rewatch-js']);
     gulp.watch(paths.jade + '**/*.jade', ['rewatch-jade']);
     gulp.watch([paths.assets + 'scss', paths.assets + 'css/'], ['rewatch-css']);
   }, 1000);
@@ -358,6 +410,7 @@ gulp.task('vendor-fontawesome', function(){
   var faVarFileName = '_variables.scss',
   // faScssFiles = paths.vendor + 'font-awesome/scss/*.scss',
     faVarFile = paths.vendor + 'font-awesome/scss/' + faVarFileName;
+
   // if fa custom var file exists dont overwrite it
   if(fs.existsSync(faVarFile)) {
     gutil.log('_variables.scss FOUND!  If you havent customized it, please look ' +
@@ -382,19 +435,23 @@ gulp.task('vendor-fontawesome', function(){
  * convenience.
  */
 gulp.task('vendor-bootstrap', function(){
+
+  //bs js
   var bootstrapJs = gulp.src([
     './node_modules/bootstrap-sass/assets/javascripts/bootstrap-sprockets.js',
     './node_modules/bootstrap-sass/assets/javascripts/bootstrap.js'
     ])
     .pipe(concat('bootstrap.custom.js'))
     .pipe(gulp.dest(paths.vendor + 'bootstrap'));
-  var bootstrapCss = gulp.src([
-    './node_modules/bootstrap-sass/assets/stylesheets/_bootstrap-sprockets.scss',
-    './node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss'
-    ])
+
+  // bs sass do this a different way, we need all, so at complie time we have all our includes
+  var bootstrapCss = gulp.src(['./node_modules/bootstrap-sass/assets/stylesheets/**/*'])
     .pipe(gulp.dest(paths.vendor + 'bootstrap/scss/'));
+
+  // bs fonts
   var vendorCopyBsFonts = gulp.src('./node_modules/bootstrap-sass/assets/fonts/bootstrap/glyph*.*')
     .pipe(gulp.dest(paths.vendor + 'bootstrap/fonts/'));
+
   // var bootstrapImages = gulp.src(['./node_modules/bootstrap-sass/assets/images'])
     // .pipe(gulp.dest(paths.vendor + 'bootstrap/images/'));
   return merge(bootstrapJs, bootstrapCss, vendorCopyBsFonts);
