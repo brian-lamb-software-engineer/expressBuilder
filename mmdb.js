@@ -4,50 +4,6 @@
  *
  * A complete Express based web stack scaffold and development toolkit.
  *
- * Introducing the first official complete NEMM web bundle. The NEMM stack
- * is based on Node.js server, Express.js framework, mongoDB and Mongoose ODM.
- * It's similar to the "mean" stack, just one step decoupled with a well known
- * tasker, some imperative tasks tailored more towards small business, to
- * enterprise level web specific development, and with a whole lot of
- * scalability!
- *
- * expressBuilder is a toolkit which will help achieve a very rapid web
- * application prototype, which is both scalable and immediately usable. It's
- * greatest feature is its meant to be used as the ground-level engineering
- * scaffold for a new product.
- *
- * This builder uses Gulp  as it's task runner. It incorporates many open-
- * source repositories most of which are related to compiling your source to
- * build, tasks such as linting, minifying, uglifying, compression and the
- * like.  There is one brilliant task that fires up a live-reload server, and
- * a file watcher, so that you can begin to live-edit immediately on your source
- * files, and watch them automatically reload in multiple browsers the second
- * you save.  This feature alone should greatly expedite responsive development.
- *
- * The vendor tasks include a working sass, bootstrap and jQuery
- * implementation. Add more / change as you like by copying ane of the Gulp
- * compile-vendors task examples, then add an entry to get it loaded on your
- * client-side view template (e.g. script / src tag).  Now you just
- * re-run three quick tasks, compile-vendors, build, then develop.  You are now
- * back in live-reload development mode, have fun!
- *
- * Measures have been taken to avoid having to use bower, grunt, and the like in
- * order to keep things simple.  For example, at the time of this writing, the
- * bootstrap-sass docs don't yet have documented a way to implement this straight
- * into gulp, and others who have, used bower. This would be pointless to add
- * bower simply to get npm modules into a directory.  The vendor specific tasks
- * on the gulpfile will guide you on how to accomplish this.
- *
- * A word on the web application which is the actual output of this build: This
- * is is a standard JavaScript / HTML5 specification client-side web ui.  The
- * middle-ware of this web application is not just static templates, it contains
- * a SOA web service which has an API (see controllers). A CRUD layer which acts
- * on this API layer is included to help fast-track, as a full-suite.
-
- * During version control, don't commit anything until you can successfully run the
- * "gulp develop" command, without seeing any lint errors, etc.., Then you would
- * want to stop the server and commit your changes, then restart.
- *
  * @resource https://nodejs.org/
  * @resource http://expressjs.com/
  * @resource http://www.mongodb.org/
