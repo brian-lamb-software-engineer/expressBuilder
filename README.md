@@ -23,7 +23,7 @@ You can now edit any files to customize your application first:
 
   d) go to npm and add your needed modules
 
-Or even easier just spin it up to see what it does.
+Or even easier just spin it up to see what it does first.
 
 
 
@@ -34,11 +34,11 @@ Or even easier just spin it up to see what it does.
 
 - Launching can be a one step process here. There is a task included for this.  To accomplish this and be done with it you would simply run the following command one time `$ gulp all`.  Now you would be able to open your browser to the apps default address:port(see below), and start working on your source files right off the top.  However if your more interested in customizing the output application itself, then you will need to learn the easy 3-step process outlined below. For instance maybe you want less instead of sass, or maybe you want to begin slipping in Angular right away to fast-track modern ui develoment.
 
-The standard and normal way of launching would be the three-step process(do this each time you start you day):  
+The standard and normal way of launching would be the three-step process(do this each time you start your day):  
 
 - First, build your vendors (if you haven't already, have recently updated vendor variables or node_modules, or recent updated your vendor tasks) `$ gulp compile-vendors` .  This will move vendors prescribed in the gulp task from your node modules out to the vendor dir for customization and inclusion
 
-- Next, run a build from your source files (the most starting point on a daily basis) `$ gulp build`.  This will move the source files into a new build output dir (e.g. www or public) for http hosting, refresh and viewing shortly.
+- Next, run a build from your source files (the most used starting point on a daily basis) `$ gulp build`.  This will move the source files into a new build output dir (e.g. www or public) for http hosting, refresh and viewing shortly.
 
 - Finally, run the development server `$ gulp develop`.  This includes a special task, a "live reload" server, and also lints, hints, and runs your unit tests just prior to firing up the server so that you can get a quick visual checkover of both your server, and application files and their integrity, and immediately prior to beginning your new development
 

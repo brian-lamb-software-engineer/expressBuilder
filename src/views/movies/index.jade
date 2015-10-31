@@ -1,22 +1,27 @@
 extends ../layout
 
 block content
-  h2.
-    #{title}
-  each movie, i in movies
-    div.panel.panel-default
-      div.panel-heading
-        panel-title.h4
-          a(href='/movies/#{movie._id}') #{movie.name}
-          if movie.year
-              i.h6 #{movie.year}
-        i.pull-right
-          a(href='/movies/#{movie._id}/edit') Edit
-      div.panel-body
-          if movie.notes
-              p #{movie.notes}
-          if movie.starring
-              h6 #{movie.starring}
-          input(type='hidden',value='DELETE',name='_method')
-          button(type='submit').
-            Delete
+  div.row
+    div.col-md-2
+    div.col-md-8
+      span.h2 #{title} 
+      span
+        a(href='/movies/new') new
+      each movie, i in movies
+        div.panel.panel-default
+          div.panel-heading
+            panel-title.h4
+              a(href='/movies/#{movie._id}') #{movie.name}
+              if movie.year
+                  i.h6 #{movie.year}
+            i.pull-right
+              a(href='/movies/#{movie._id}/edit') Edit
+          div.panel-body
+              if movie.notes
+                  p #{movie.notes}
+              if movie.starring
+                  h6 #{movie.starring}
+              input(type='hidden',value='DELETE',name='_method')
+              button(type='submit').
+                Delete
+    div.col-md-2
