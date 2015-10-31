@@ -1,91 +1,40 @@
-# expressBuilder
-node express scaffold builder and toolkit
-
 expressBuilder
+Product Documentation has now been moved to the wiki, please visit there for details.  https://github.com/wolfdogg/expressBuilder/wiki/About-expressBuilder
 
-A complete Express based web stack scaffold and development toolkit.
+Basic instructions
 
-Introducing the first official complete NEMM web bundle. The NEMM stack
-is based on Node.js server, Express.js framework, mongoDB and Mongoose ODM.
-It's similar to the "mean" stack, just one step decoupled with a well known
-tasker, some imperative tasks tailored more towards small business, to
-enterprise level web specific development, and with a whole lot of
-scalability!
+Procurement:
+-clone
+-cd to project dir in a terminal
+-install packages `npm install` into the project dir
 
-expressBuilder is a toolkit which will help achieve a very rapid web
-application prototype, which is both scalable and immediately usable. It's
-greatest feature is its meant to be used as the ground-level engineering
-scaffold for a new product.
+You can now edit any files to customize your application first:
+  a) build out your app; source files (src/) and tests (tests/)
+  b) add or alter the tasker tasks to customize your app(gulpfile.js)
+  c) customize your application server (mmdb.js)
+  d) go to npm and add your needed modules
 
-This builder uses Gulp  as it's task runner. It incorporates many open-
-source repositories most of which are related to compiling your source to
-build, tasks such as linting, minifying, uglifying, compression and the
-like.  There is one brilliant task that fires up a live-reload server, and
-a file watcher, so that you can begin to live-edit immediately on your source
-files, and watch them automatically reload in multiple browsers the second
-you save.  This feature alone should greatly expedite responsive development.
+Or even easier just spin it up to see what it does.  
 
-The vendor tasks include a working sass, bootstrap and jQuery
-implementation. Add more / change as you like by copying ane of the Gulp
-compile-vendors task examples, then add an entry to get it loaded on your
-client-side view template (e.g. script / src tag).  Now you just
-re-run three quick tasks, compile-vendors, build, then develop.  You are now
-back in live-reload development mode, have fun!
+Launching:
+- First, build your vendors  `$ gulp compile-vendors` This will move vendors prescribed in the gulp task from your node modules out to the vendor dir for customization and inclusion
+- Next, run a build from your source files `$ gulp build`.  This will move the src files into a new build output dir (e.g. www or public) for http hosting, refresh and viewing shortly.
 
-Measures have been taken to avoid having to use bower, grunt, and the like in
-order to keep things simple.  For example, at the time of this writing, the
-bootstrap-sass docs don't yet have documented a way to implement this straight
-into gulp, and others who have, used bower. This would be pointless to add
-bower simply to get npm modules into a directory.  The vendor specific tasks
-on the gulpfile will guide you on how to accomplish this.
+- Finally, run the development server `$ gulp develop`.  This includes a special task, a "live reload" server, and also lints, hints, and runs your unit tests just prior to firing up the server so that you can get a quick visual checkover of both your server, and application files and their integrity, and immediately prior to beginning your new development
 
-A word on the web application which is the actual output of this build: This
-is is a standard JavaScript / HTML5 specification client-side web ui.  The
-middle-ware of this web application is not just static templates, it contains
-a SOA web service which has an API (see controllers). A CRUD layer which acts
-on this API layer is included to help fast-track, as a full-suite.
+-You can now open your browser to the default port http:/127.0.0.1:3000, or using the IP of your server here if the browser client is on a different machine than the node server.   With this live reload server in its default watch mode, you can immediately begin to edit and save files while your browser slaves to the new adjustments automatically.  This has been found to be working on both windows chrome and windows firefox at least, thus far.
 
-During version control, don't commit anything until you can successfully run the
-"gulp develop" command, without seeing any lint errors, etc.., Then you would
-want to stop the server and commit your changes, then restart.
+-The idea of any new development now will primarily depend on your need.  If you want an API, most of your work will be in the models and controllers.  If you want a full website, alot of your work will be accessing these new models and controllers by building a ui, which by default is the jade view templates located in view/.  
 
+During your development, the watch command is ready for you as you save it refreshes your browser in certain ways, depending on the file type that you edit.  You can fully tap into, and customize this watch functionality in the gulp `watch` task.  
 
+Basic task flow:
+During development of your source files, as you build out your application, if you have edited any tasks, or have done something to error out your server, or the server is stopped for some reason, simply run the following to restart it `$ gulp build && gulp develop;`, then resume development.
 
-Some basic usage instructions:
+If any of your edits are done to the vendor tasks, be sure to run your task to recompile them before you rebuild `$ gulp compile-vendors`.  If you know you will be running the `build` and `develop` tasks after, then instead of running the `compile-vendors`, there is another task for this, called `all`, so just run the following `$ gulp all`.  This will `compile-vendors`, then `build`, then `develop`
 
--clone the repo
+The default task, i.e. `$ gulp` is equivalent to `$ gulp develop`, which doesnt rebuild, it just starts the watch. This task is for once you get things worked out on your application, have your tasks set up like you like, then just day by day develop thing, you would just really need to get the watcher and server started.  Do this before editing any files.  As you make your first edit, the watch will take over, and run the build tasks for you on the fly, lint them, etc., then live-reload.  
 
--cd to cd to cloned project dir in your terminal
+If something gets broken, as a debug if you’re not seeing error output, or after your done with development and just want to run it, try to run the default server in one of two ways `npm start`, `$ ./bin/www`.  This will normally get you any elusive errors that you were not seeing when running the gulp tasks if something goes awry.
 
--install your npm packages, i belive this is to run `npm install` from this project dir.  Some adjustments might be needed here if my brain is as offline as it seems, its really late.
-
--once you have all teh npm packaes installed, that are listed on the package.json, your good.  they should end up in the project/expressBuilder/node_modules directory, you can now run the purposed application. 
-
-
--First do a build of vendors
-  `$ gulp compile-vendors`
-  this will move vendors perscribed in the gulp task from your node modules into the vendor dir
-  
--Now do a build from your source files
-  `$ gulp build`
-  This will move the src files into a new build output dir (e.g. www or public) for http hosting, refresh and viewing shortly. 
-  
-  
--Now run the thing, using the develop task, it runs a special live reload server, and lints, hints, and runs your unit tests so you can get a quick status before moving onto new development. 
-
-  `$ gulp develop`
-  This will a live reload server, tested in windows chrome, and windows firefox to be working, thus far.
-    
--New development primarily consists of deciding to fix any errors that you just saw in the lint, or unit tests, or if none,  decide to engineer  in teh src/ directory, or test/ directory, or maybe you need to add a new route to your server (mmdb.js in this case)
-
-
-Normally, when you tweak your sources during development, run the following after
-    `$ gulp build && gulp develop;`
-    
-If your not sure if you tweaked anything related to the compile-vendors portion, there is a command that will include that one as well, called gulp all
-    `$ gulp all`
-
-The default task, i.e. `$ gulp` is equivalent to `$ gulp develop`, which doesnt rebuild, it just starts the watch. then as long as you save after, then your page will refresh.  
-
-
-As a debug if your not seeing error output, or after your done with development and just want to run it, try to run the default server `$ ./bin/www`
+During version control, don't commit anything until you can successfully run the `gulp develop` command, without seeing any lint or unit testing errors, etc…  Once its ready, then you would want to stop the server (ctrl+c on the terminal from which its being ran, or a `pkill` sent), then commit your changes. Rinse and repeat.
