@@ -4,9 +4,13 @@ Product Documentation has now been moved to the wiki, please visit there for det
 Basic instructions
 
 Procurement:
+
 -clone
+
 -cd to project dir in a terminal
+
 -install packages `npm install` into the project dir
+
 
 You can now edit any files to customize your application first:
   a) build out your app; source files (src/) and tests (tests/)
@@ -17,6 +21,7 @@ You can now edit any files to customize your application first:
 Or even easier just spin it up to see what it does.  
 
 Launching:
+
 - First, build your vendors  `$ gulp compile-vendors` This will move vendors prescribed in the gulp task from your node modules out to the vendor dir for customization and inclusion
 - Next, run a build from your source files `$ gulp build`.  This will move the src files into a new build output dir (e.g. www or public) for http hosting, refresh and viewing shortly.
 
@@ -29,6 +34,7 @@ Launching:
 During your development, the watch command is ready for you as you save it refreshes your browser in certain ways, depending on the file type that you edit.  You can fully tap into, and customize this watch functionality in the gulp `watch` task.  
 
 Basic task flow:
+
 During development of your source files, as you build out your application, if you have edited any tasks, or have done something to error out your server, or the server is stopped for some reason, simply run the following to restart it `$ gulp build && gulp develop;`, then resume development.
 
 If any of your edits are done to the vendor tasks, be sure to run your task to recompile them before you rebuild `$ gulp compile-vendors`.  If you know you will be running the `build` and `develop` tasks after, then instead of running the `compile-vendors`, there is another task for this, called `all`, so just run the following `$ gulp all`.  This will `compile-vendors`, then `build`, then `develop`
