@@ -63,7 +63,7 @@ var paths = {
   services:   './src/service-singletons/',
   jade:       './src/views/',
   assets:     'src/assets/',
-  tests:     'tests/',
+  tests:      'tests/',
   // the clean(delete) path's, mostly for build dir add whatever you want,
   // './www' works as a fell swoop.  you cant add the vendors to this or you will
   // end up having to mess with alot of things to accomodate since these paths
@@ -99,7 +99,7 @@ var paths = {
   jadelint =      require('gulp-jadelint'),
   jQueryBuilder = require('jquery-custom'),
   coffee =        require('gulp-coffee'),
-  jasmine =        require('gulp-jasmine');
+  jasmine =       require('gulp-jasmine');
 
 /**
  * Task default
@@ -150,6 +150,9 @@ gulp.task('server-js', function(){
     .pipe(jshint.reporter('jshint-stylish'));
 });
 
+/**
+ * Task coffee-js
+ */
 gulp.task('coffee-js', function(){
   return gulp.src(paths.src + '**/*.coffee')
         .pipe(coffee({bare:true}).on('error', gutil.log))
@@ -325,7 +328,7 @@ gulp.task('lint-js', function(){
  */
 gulp.task('gls', function(){
   setTimeout(function () {
-    gutil.log('Gls Server Starting http://192.168.1.10:3000');
+    gutil.log('Gls Server Starting http://<ip-address>:3000');
     gutil.log('Look for lint output, and correct errors accordingly, ready to ' +
     'begin development!');
     var server = gls.new('bin/www');
@@ -365,9 +368,9 @@ gulp.task('rewatch-js', ['lint-js', 'client-js'] );
 gulp.task('rewatch-css', ['process-css'] );
 gulp.task('rewatch-jade', ['lintcopy-jade'] );
 
-      /**
-       * Task compile-vendors
-       */
+/**
+ * Task compile-vendors
+ */
 gulp.task('compile-vendors', ['vendor-fontawesome', 'vendor-bootstrap',
  'vendor-jquery']);
 
@@ -408,7 +411,6 @@ gulp.task('vendor-jquery', function(){
  */
 gulp.task('vendor-fontawesome', function(){
   var faVarFileName = '_variables.scss',
-  // faScssFiles = paths.vendor + 'font-awesome/scss/*.scss',
     faVarFile = paths.vendor + 'font-awesome/scss/' + faVarFileName;
 
   // if fa custom var file exists dont overwrite it
@@ -457,15 +459,13 @@ gulp.task('vendor-bootstrap', function(){
   return merge(bootstrapJs, bootstrapCss, vendorCopyBsFonts);
 });
 
-
-      /**
-       * Support Tasks
-       */
-
 /**
-* Task clean
-* used in develop and watch
-*/
+ * Support Tasks
+ * *************
+ *
+ * Task clean
+ * used in develop and watch
+ */
 gulp.task('clean', function(cb){
   del(paths.del); //all app output is built here, so clean-slate it..
   setTimeout(function () {

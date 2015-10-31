@@ -25,6 +25,7 @@ when starting server, client-js task, an error;
  throw
  ^
       (this error was related to a missing require, in this case was a typo)
+ *
  */
 var express =   require('express'),
   path =        require('path'),
@@ -37,7 +38,7 @@ var express =   require('express'),
   bootstrap =   require('express-bootstrap-service'),
   routes =      require('./www/js/indexController'),
   db =          require('./www/js/dbMongoose'),
-  //db =          require('./www/js/dbMongoose'),
+  //db =          require('./www/js/dbSequelize'),
   movies =      require('./www/js/movieController'),
   movie =       require('./www/js/movieModel'),
   blobs =       require('./www/js/blobController'),
@@ -69,8 +70,8 @@ app.use(require('connect-livereload')({
     src: 'http://192.168.1.10:35729/livereload.js?snipver=1'
 }));
 
-app.use(express.static('www'));
 
+app.use(express.static('www'));
 
 //some security
 app.all('/*', function(req, res, next) {
@@ -90,9 +91,6 @@ app.all('/*', function(req, res, next) {
 // Any URL's that do not follow the below pattern should be avoided unless you
 // are sure that authentication is not needed
 // app.all('/api/v1/*', [require('./js/validateRequestService')]);
-
-
-
 
 app.use('/', routes);  //Note, ALL use statements can point to '/' instead for SPA (look at res.redirect's)
 //app.use('/users', users);
