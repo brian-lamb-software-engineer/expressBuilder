@@ -66,8 +66,8 @@ bootstrap.init({
 });
 
 app.use(require('connect-livereload')({
-    port: 35729,
-    src: 'http://192.168.1.10:35729/livereload.js?snipver=1'
+    port: 35730,
+    src: 'http://192.168.1.10:35730/livereload.js?snipver=1'
 }));
 
 

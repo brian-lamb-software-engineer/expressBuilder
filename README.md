@@ -19,7 +19,7 @@ You can now edit any files to customize your application first:
 
   b) add or alter the tasker tasks to customize your app(gulpfile.js)
 
-  c) customize your application server (mmdb.js)
+  c) customize your application server (index.js)
 
   d) go to npm and add your needed modules
 
@@ -30,7 +30,7 @@ Or even easier just spin it up to see what it does first.
 
 **Launching:**
 
-- Prior to launching, the main thing you need to do is look over the server settings and ports (./mmdb.js and bin/www)  On the app server file make sure you adjust the IP address of the app livereload server to match the app servers ip.
+- Prior to launching, the main thing you need to do is look over the server settings and ports (./index.js and bin/www)  On the app server file make sure you adjust the IP address of the app livereload server to match the app servers ip.
 
 - Launching can be a one step process here. There is a task included for this.  To accomplish this and be done with it you would simply run the following command one time `$ gulp all`.  Now you would be able to open your browser to the apps default address:port(see below), and start working on your source files right off the top.  However if your more interested in customizing the output application itself, then you will need to learn the easy 3-step process outlined below. For instance maybe you want less instead of sass, or maybe you want to begin slipping in Angular right away to fast-track modern ui develoment.
 

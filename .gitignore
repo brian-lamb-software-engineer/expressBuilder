@@ -1,4 +1,10 @@
 
+#nuiscance file from git merge/cherrypick
+*.orig
+
+#nuiscance file from vim
+*.swp
+
 # ignore the etc directory, contains sensitive params, and maybe env specific stuff
 etc/
 
@@ -15,7 +21,9 @@ node_modules/
 # sass variables file. all else can be deleted before commiting, however allowing
 # them to commit like this holds the idea that the vendors will at least always
 # be available for use in this working condition for the duration of the
-# shelf-life of the software.
+# shelf-life of the software, what that is deemed to be.  Shelf life is
+# potentially  up to now, and here. 
+
 # vendor/
 
 # these files are dynamically created, therefore don't need to be part of the repo.

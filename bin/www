@@ -1,15 +1,18 @@
 #!/usr/bin/env node
+// you can find the configurations for gulp-live-server here as well
+
 
 // dependencies.
 var server,
-  app = require('../mmdb.js'),
+  app = require('../index.js'),
   debug = require('debug')('mmdb:server'),
   http = require('http'),
-  port = normalizePort(process.env.PORT || '3000'); //Get port from environment and store in Express.
+  //port = normalizePort(process.env.PORT || '3000'); //Get port from environment and store in Express.
+  port = normalizePort('3003');
 
 //start server
 app.set('port', port);
-server = http.createServer(app); //Create HTTP server.
+server = http.Server(app); //Create HTTP server.
 server.listen(port); //Listen on provided port, on all network interfaces.
 server.on('error', onError);
 server.on('listening', onListening);
@@ -49,7 +52,11 @@ function onError(error) {
       process.exit(1);
       break;
     case 'EADDRINUSE':
+<<<<<<< HEAD
       console.error(bind + ' is already in use');
+=======
+      console.error(bind + ' is already in use, yo');
+>>>>>>> 9830bd5... this is originally commit message below
       process.exit(1);
       break;
     default:
