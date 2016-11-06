@@ -51,20 +51,21 @@ gulp.task('gls', function(){
      * more custom setup, dont use new, just use gls, and add in config
      * here, etc..
      **/
-    gulp.watch([
-         config.paths.pub + 'css/**/*.css',
-         config.paths.pub + 'js/**/*.js',
-         config.paths.pub + 'views/**/*.jade'
-       ], function(file){
+    gulp.watch([config.paths.pub + 'css/**/*.css'], function(file){
 
         gutil.log('pub side - triggering server notify apply file ');
         server.notify.apply(server, [file]);
         gutil.log('clientside re-compress - check for browser response');
       });
 
-    gulp.watch(config.paths.pub + '*.js', function(){
+    gulp.watch([
+        config.paths.pub + 'js/**/*.js',
+        config.paths.pub + 'views/**/*.jade'], function(file){
       gutil.log('pub side - triggering server bind ');
-      server.start.bind(server);
+      server.notify.apply(server, [file,
+         '/home/wolfdogg/sites/wolfdogg.org/index.js']);
+      server.stop.bind(server)
+      server.start.bind(server)
       gutil.log('client restart - check for browser response');
     }); //watch the server too
   }, 1500);

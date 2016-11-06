@@ -7,6 +7,7 @@
 var express = require('express'),
     router = express.Router(),
     mongoose = require('mongoose'),
+    Promise = require("bluebird"),
     bodyParser = require('body-parser'),//parse post
     methodOverride = require('method-override');//manip post
 

@@ -15,16 +15,29 @@ module.exports = {
       //   gutil.log("pub side - any file in the pub path, attempting reloading server");
       //   runSequence('notifyReloadServer');
       // });
-      gulp.watch([config.paths.assets + 'js/**/*.js',config.paths.assets + 'js/**/*.coffee'], function(){
-        gutil.log("buildout js or coffee - check for client side action");
-        runSequence('client-js');
+      //watch js assets, including coffee scripts, AND controllers source
+      gulp.watch([
+          config.paths.assets + 'js/**/*.js',
+          config.paths.assets + 'js/**/*.coffee',
+          config.paths.controllers + '**/*.js'], function(){
+        gutil.log("buildout all src js and coffee - check for client side action");
+        return runSequence('client-js');
       });
+      //watch sass assets
       gulp.watch(config.paths.assets + 'scss/**/*.scss', function () {
         gutil.log("buildout scss - check for client side action");
-        runSequence('process-css');
+        return runSequence('process-css');
         //   runSequence('lintcopy-jade');
       });
-      gulp.watch('index.js', runSequence('notifyReloadServer')); //restart server
+      //watch jade template assets
+      gulp.watch(config.paths.jade + '**/*.jade', function () {
+        gutil.log("buildout jade - check for client side action");
+        return runSequence('lintcopy-jade');
+      });
+      //watch main node server index.js app
+      gulp.watch('index.js', function(){
+        return runSequence('notifyReloadServer')
+      }); //restart server
     }, 1000);
   }
 };
