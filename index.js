@@ -70,7 +70,6 @@ app.use(require('connect-livereload')({
     src: 'http://192.168.1.10:35730/livereload.js?snipver=1'
 }));
 
-
 app.use(express.static('www'));
 
 //some security
