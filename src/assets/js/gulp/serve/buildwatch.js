@@ -19,7 +19,7 @@ module.exports = {
       gulp.watch([
           config.paths.assets + 'js/**/*.js',
           config.paths.assets + 'js/**/*.coffee',
-          config.paths.controllers + '**/*.js'], function(){
+          config.paths.controllers + '*.js'], function(){ //some reason **/*.js isnt working here
         gutil.log("buildout all src js and coffee - check for client side action");
         return runSequence('client-js');
       });

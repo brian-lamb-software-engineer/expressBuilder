@@ -1,33 +1,45 @@
 doctype html
 html(lang=en)
   head
-    title='MMDB Moms Movie Database'
+    title='MMDB - Movie Database'
     link(rel='stylesheet', href='/css/styles.css')
     script(src='/js/head.js')
+    meta(name='viewport' content='width=device-width, initial-scale=1')
   body
     header.container-fluid
-      div.row
-        div.col-md-2
-        div.col-md-8
-          ul
-        p
-          ul.nav.nav-pills
+      nav.row
+          div.col-md-2.col-xs-0
+          div.col-md-8.col-xs-12
+            ul.nav.nav-pills.pull-right
+              li
+                a(href='/') Home
+              li
+                a(href='/blobs') Blobs
+              li
+                a(href='/movies') Movies
+          div.col-md-2.col-xs-0
+      div.row.banner
+        div.col-md-2.col-xs-0
+        div.col-md-8.col-xs-12
+        div.col-md-2.col-xs-0
+      div.row.controlBar
+        div.col-md-3
+        div.col-md-6.col-xs-12
+          ul.nav.nav-pills.pull-right
             li
-              a(href='/') Home
-            li
-              a(href='/blobs') Blobs
-            li
-              a(href='/movies') Movies
-        div.col-md-2
+              a
+                script.
+                  document.write(appModule.getDate());
+        div.col-md-3
     main.container-fluid
         block content
     footer.container-fluid
       div.row
-        div.col-md-2
-        div.col-md-8
+        div.col-md-2.col-xs-1
+        div.col-md-8.col-xs-10
           p
             ul.list-inline
               li
                 a(href='/') Home
-        div.col-md-8
+        div.col-md-2.col-xs-1
     script(src='/js/foot.js')

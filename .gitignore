@@ -40,12 +40,12 @@ www/
 #old stuff below
 #
 # ignore certain file types
-* .zip
-* .rar
-* .gz
-* _log
-* .log
-* ~.*
+*.zip
+*.rar
+*.gz
+*_log
+*.log
+*~.*
 #
 #some common server files needing ignoring
 .ftpquota

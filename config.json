@@ -1,22 +1,23 @@
 {
   "_comment": "    pub = the build dir    all css (recreated on build)    all fonts (recreated on build)    all js (recreated on build)    all views (recreated on build)    the v_ersion tag (recreated on build)    having paths makes the entire tasking easier to program out",
   "paths" : {
-    "src":        "./src/",
-    "pub":        "./www/",
-    "vendor":     "./vendor/",
-    "controllers":"./src/controllers/",
-    "models":     "./src/models/",
-    "services":   "./src/service-singletons/",
-    "jade":       "./src/views/",
+    "src":        "src/",
+    "pub":        "www/",
+    "vendor":     "vendor/",
+    "controllers":"src/controllers/",
+    "models":     "src/models/",
+    "services":   "src/service-singletons/",
+    "jade":       "src/views/",
     "assets":     "src/assets/",
     "tests":      "tests/",
     "packageroot":"./",
+    "tmp":"/tmp",
     "del":       [
-                "./www/css/",
-                "./www/fonts/",
-                "./www/js/",
-                "./www/views/",
-                "./www/v_*"
+                "www/css/",
+                "www/fonts/",
+                "www/js/",
+                "www/views/",
+                "www/v_*"
               ]
     }
 }

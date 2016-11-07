@@ -1,0 +1,86 @@
+/**
+* Global imports. Super important for initial styles to pull from
+*/
+@import "../../../vendor/bootstrap/scss/bootstrap.scss";
+@import "../../../vendor/bootstrap/scss/bootstrap-sprockets.scss";
+@import "../../../vendor/font-awesome/scss/font-awesome.scss";
+@import "vars.scss";
+@import "mixins.scss";
+//
+/*==========  Mobile First Method  ==========*/
+/* XTRA SMALL, iPhone Retina (AND UP) */
+/**
+* All site styles here.  Override for larger later, develop in responsive
+* mobile view for something like iPhone6 portrait view, with LIVERELOAD on
+*/
+@media only screen and (min-width : 320px) {
+  /**
+  * CSS DEFAULT STYLES
+  * Generic Typography, and html styles, that can  be overridden later below on
+  * a specific case to case basis
+  */
+  a {
+    color: #00F;
+    text-decoration: none;
+  }
+  p {
+    text-indent: 30px;
+    line-height: 1.5;
+  }
+  /**
+  * TARGET SPECIFIC FINAL OVERRIDES (all styles go here.  When something can be
+  * globalized out, then move it above somewhere)
+  */
+  body {
+    color: $font-color;
+    background-color: $body-bg-color;
+    font: $font-size $font-family;
+    margin:0;
+    letter-spacing: 0.2px;
+    /**
+    * HEADER STYLES
+    */
+    header {
+      nav.row{
+        background-color: $primary-bg-color;
+        div{ //or col-xs-12, or use wildcard col-* col-xs* etc.  (Forgot what wildcard is)
+            padding: 0;
+          ul{
+            li{
+              font-size: 16px;
+              font-weight: bold;
+              padding: 2px;
+            }
+          }
+        }
+      }
+      .row.banner{
+        background-color: $brand-blue;
+        height:80px;
+      }
+      .row.controlBar{
+        ul {
+          li {
+            a{
+              color: #666;
+            }
+          }
+        }
+        background-color: $primary-bg-color;
+        height:40px;
+      }
+    }
+    /**
+    * MAIN CONTENT COL STYLES
+    */
+    main{
+      background-color: $primary-bg-color;
+    }
+    /**
+    * FOOTER STYLES
+    */
+    footer{
+      background-color: $brand-blue;
+    }
+  }
+}

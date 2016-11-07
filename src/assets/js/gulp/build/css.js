@@ -16,16 +16,18 @@
  * @todo 	responsive includes per @media, and called via loader.scss
  */
 gulp.task('process-css', function(){
-  var localScssPath = config.paths.assets + 'scss/*.scss',
-    localCssPath = config.paths.assets + 'css/*.css',
+    localScssPath = [
+      config.paths.assets + 'scss/styles.scss',
+      config.paths.assets + 'scss/media-overrides.scss'],
+    localCssPath = [config.paths.assets + 'css/*.css'],
     outputCssName = 'styles.css';
 
   // sass to process, normally only local stuff, vendors can be @imported
-  var localSass = gulp.src([localScssPath]) //this is the one that contains the code we ant loaded LAST
+  var localSass = gulp.src(localScssPath) //this is the one that contains the code we ant loaded LAST
     .pipe(sass().on('error', sass.logError));
 
   // css to process, normally local, vendors can be imported
-  var localCss = gulp.src([localCssPath]);
+  var localCss = gulp.src(localCssPath);
 
   // run it
   return merge(localCss, localSass) //this order was NOT working, so had to install gulp-order for this alone
