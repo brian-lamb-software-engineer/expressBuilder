@@ -52,11 +52,7 @@ function onError(error) {
       process.exit(1);
       break;
     case 'EADDRINUSE':
-<<<<<<< HEAD
-      console.error(bind + ' is already in use');
-=======
       console.error(bind + ' is already in use, yo');
->>>>>>> 9830bd5... this is originally commit message below
       process.exit(1);
       break;
     default:
