@@ -1,3 +1,8 @@
+#ignore coffee files, which arent excluded because they are special case, and
+# need double compiling, so for now instead of compiling off to a tmp dir, they
+# are compiled, for easy reference, right next to teh .coffee file, and are just
+# given their own extention to keep them easily distinguished. 
+*.cfe.js
 
 #nuiscance file from git merge/cherrypick
 *.orig
@@ -32,6 +37,8 @@ vendor/dummy.js
 # ignore the build dir, that would be nothing but dead weight, no source in there!
 www/
 
+#old stuff below
+#
 # ignore certain file types
 * .zip
 * .rar
@@ -39,6 +46,16 @@ www/
 * _log
 * .log
 * ~.*
-
+#
+#some common server files needing ignoring
+.ftpquota
+.htaccess
+error_log
+google*.html
+#
+#wordpress installation embedded inside main dir
+/cmswp
+wp.php
+#
 #intellij
 .idea/
