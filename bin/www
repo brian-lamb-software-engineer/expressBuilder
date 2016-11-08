@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 // you can find the configurations for gulp-live-server here as well
 
-
 // dependencies.
 var server,
   app = require('../index.js'),

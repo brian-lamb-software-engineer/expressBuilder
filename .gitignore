@@ -1,8 +1,6 @@
-#ignore coffee files, which arent excluded because they are special case, and
-# need double compiling, so for now instead of compiling off to a tmp dir, they
-# are compiled, for easy reference, right next to teh .coffee file, and are just
-# given their own extention to keep them easily distinguished. 
-*.cfe.js
+##
+# NOTICE< CHECK .git/info/exclude, as a general rule
+###
 
 #nuiscance file from git merge/cherrypick
 *.orig
@@ -13,8 +11,12 @@
 # ignore the etc directory, contains sensitive params, and maybe env specific stuff
 etc/
 
-# ignore db file
-movies.csv
+
+#ignore coffee files, which arent excluded because they are special case, and
+# need double compiling, so for now instead of compiling off to a tmp dir, they
+# are compiled, for easy reference, right next to teh .coffee file, and are just
+# given their own extention to keep them easily distinguished. 
+*.cfe.js
 
 # ignore all node modules
 node_modules/
@@ -34,10 +36,10 @@ node_modules/
 # these files are dynamically created, therefore don't need to be part of the repo.
 vendor/dummy.js
 
-# ignore the build dir, that would be nothing but dead weight, no source in there!
+# Ignore the build dir, that would be nothing but dead weight, no source in there!
 www/
 
-#old stuff below
+# Old stuff below
 #
 # ignore certain file types
 *.zip
@@ -47,11 +49,15 @@ www/
 *.log
 *~.*
 #
-#some common server files needing ignoring
+# Some common server files needing ignoring
 .ftpquota
 .htaccess
 error_log
 google*.html
+#
+#
+# ignore db file
+movies.csv
 #
 #wordpress installation embedded inside main dir
 /cmswp
