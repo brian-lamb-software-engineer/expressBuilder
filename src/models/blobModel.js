@@ -1,8 +1,9 @@
-var mongoose = require('mongoose');
-var blobSchema = new mongoose.Schema({
+//
+var mm = require('mongoose');
+var blobSchema = new mm.Schema({
   name:String,
   badge: Number,
   dob: {type: Date, default: Date.now},
   isloved: Boolean
 });
-mongoose.model('Blob', blobSchema);
+mm.model('Blob', blobSchema);

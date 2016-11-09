@@ -1,15 +1,14 @@
 /**
- * Blobs controller / RESTful API CRUD  / router
+ * Blobs controller / RESTful API CRUD  routes and controller
  * see for more info -https://scotch.io/tutorials/using-mongoosejs-in-node-js-and-mongodb-applications
  * includes all crud operations
  **/
-
-var express = require('express'),
-    router = express.Router(),
-    mongoose = require('mongoose'),
-    Promise = require("bluebird"),
-    bodyParser = require('body-parser'),//parse post
-    methodOverride = require('method-override');//manip post
+var express =         require('express');
+var router =              express.Router();
+var mm =              require('mongoose');
+var bodyParser =      require('body-parser');//parse post
+var methodOverride =  require('method-override');//manip post
+var blob =            require('./blobModel');
 
 //make sure that every requests that hits this controller will pass through these functions
 router.use(bodyParser.urlencoded({ extended: true }))
@@ -24,9 +23,8 @@ router.use(methodOverride(function(req, res){
 
 //crud and REST API
 //build the REST operations at the base for blobs
-router.route('/').get(function(req, res, next) {
-
-      mongoose.model('Blob').find({}, function(err, blobs) {
+router.route('/').get( function(req, res, next) {
+      mm.model('Blob').find({}, function(err, blobs) {
         if(!err){
           //respond to both HTML and JSON. JSON responses require 'Accept: application/json;' in the Request Header
           res.format({
@@ -55,7 +53,7 @@ router.route('/').get(function(req, res, next) {
           dob = req.body.dob,
           company = req.body.company,
           isloved = req.body.isloved;
-          mongoose.model('Blob').create({
+          mm.model('Blob').create({
             name: name,
             badge: badge,
             dob: dob,
@@ -88,7 +86,7 @@ router.route('/').get(function(req, res, next) {
 
     //route this middleware to check id first
     router.param('id', function(req, res, next, id){
-      mongoose.model('Blob').findById(id, function(err, blob){
+      mm.model('Blob').findById(id, function(err, blob){
         if(!err){
           req.id = id;
           next();
@@ -115,9 +113,8 @@ router.route('/').get(function(req, res, next) {
     //   res.json(blob);
     // }
 
-    router.route('/:id')
-      .get(function(req, res) {
-        mongoose.model('Blob').findById(req.id, function(err, blob){
+    router.get('/:id', function(req, res) {
+        mm.model('Blob').findById(req.id, function(err, blob){
           if(!err){
             console.log('GET Retrieving ID: ' + blob._id);
             var blobdob = blob.dob.toISOString();
@@ -144,7 +141,7 @@ router.route('/').get(function(req, res, next) {
       router.route('/:id/edit')
         .get(function(req, res){
           //search
-          mongoose.model('Blob').findById(req.id, function(err, blob){
+          mm.model('Blob').findById(req.id, function(err, blob){
             if(!err){
               //Return the blob
               console.log('GET Retrieving ID: ' + blob._id);
@@ -176,7 +173,7 @@ router.route('/').get(function(req, res, next) {
               company = req.body.company,
               isloved = req.body.isloved;
               //find by id
-              mongoose.model('Blob').findById(req.id, function (err, blob){
+              mm.model('Blob').findById(req.id, function (err, blob){
                 blob.update({
                   name: name,
                   badge: badge,
@@ -203,7 +200,7 @@ router.route('/').get(function(req, res, next) {
       //delete
       router.delete('/:id/edit', function(req, res){
         //find by id
-        mongoose.model('Blob').findById(req.id, function(err, blob){
+        mm.model('Blob').findById(req.id, function(err, blob){
           if(!err){
             console.log('DELETE removing ID: ' + blob._id);
             res.format({

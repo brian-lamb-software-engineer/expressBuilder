@@ -27,49 +27,39 @@ when starting server, client-js task, an error;
       (this error was related to a missing require, in this case was a typo)
  *
  */
-var express =   require('express'),
-  path =        require('path'),
-  favicon =     require('serve-favicon'),
-  logger =      require('morgan'),
-  cookieParser = require('cookie-parser'),
-  bodyParser =  require('body-parser'),
-  compression = require('compression'),
-  sass =        require('node-sass'),
-  bootstrap =   require('express-bootstrap-service'),
-  routes =      require('./www/js/indexController'),
-  db =          require('./www/js/dbMongoose'),
-  //db =          require('./www/js/dbSequelize'),
-  movies =      require('./www/js/movieController'),
-  movie =       require('./www/js/movieModel'),
-  blobs =       require('./www/js/blobController'),
-  blob =        require('./www/js/blobModel'),
-  app = express();
+var express =     require('express');
+var path =        require('path');
+var favicon =     require('serve-favicon');
+var logger =      require('morgan');
+var cookieParser = require('cookie-parser');
+var bodyParser =  require('body-parser');
+var compression = require('compression');
+var sass =        require('node-sass');
+var bootstrap =   require('express-bootstrap-service');
+var db =          require('./www/js/dbMongoose');
+//var db =        require('./www/js/dbSequelize');
+var Promise =     require("bluebird");
+var app =         express();
 
-/**
- * app.set
- */
+// CONTROLLERS
+var routes =      require('./www/js/indexController');
+var movies =      require('./www/js/movieController');
+var blobs =       require('./www/js/blobController');
+// var students =      require('./www/js/studentController');
+
 app.set('views', path.join(__dirname, 'www/views'));
 app.set('view engine', 'jade');
-
-/**
- * app.use
- */
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(compression());
-
 app.use(bootstrap.serve);
-bootstrap.init({
-    minified: false
-});
-
+bootstrap.init({ minified: false });
 app.use(require('connect-livereload')({
     port: 35729,
     src: 'http://192.168.1.10:35729/livereload.js?snipver=1'
 }));
-
 app.use(express.static('www'));
 
 //some security
@@ -93,8 +83,9 @@ app.all('/*', function(req, res, next) {
 
 app.use('/', routes);  //Note, ALL use statements can point to '/' instead for SPA (look at res.redirect's)
 //app.use('/users', users);
-app.use('/blobs', blobs); // Blobs CRUD
-app.use('/movies', movies); // Movies CRUD
+app.use('/blobs', blobs); // Blobs
+app.use('/movies', movies); // Movies
+// app.use('/students', students); // Dogs
 app.use("/css", express.static(__dirname + '/css')); //assets
 app.use("/js", express.static(__dirname + '/js')); //assets
 app.use("/images", express.static(__dirname + '/images')); //assets

@@ -5,11 +5,12 @@
 /**
 {"Title":"Oblivion","Year":"2013","Rated":"PG-13","Released":"19 Apr 2013","Runtime":"124 min","Genre":"Action, Adventure, Mystery","Director":"Joseph Kosinski","Writer":"Karl Gajdusek (screenplay), Michael Arndt (screenplay), Joseph Kosinski (graphic novel original story)","Actors":"Tom Cruise, Morgan Freeman, Olga Kurylenko, Andrea Riseborough","Plot":"A veteran assigned to extract Earth's remaining resources begins to question what he knows about his mission and himself.","Language":"English","Country":"USA","Awards":"11 nominations.","Poster":"http://ia.media-imdb.com/images/M/MV5BMTQwMDY0MTA4MF5BMl5BanBnXkFtZTcwNzI3MDgxOQ@@._V1_SX300.jpg","Metascore":"54","imdbRating":"7.0","imdbVotes":"351,549","imdbID":"tt1483013","Type":"movie","Response":"True"}
 */
-var express = require('express'),
-    router = express.Router(),
-    mongoose = require('mongoose'),
-    bodyParser = require('body-parser'),//parse post
-    methodOverride = require('method-override');//manip post
+var express =       require('express');
+var router =            express.Router();
+var mongoose =            require('mongoose');
+var bodyParser =    require('body-parser');//parse post
+var methodOverride = require('method-override');//manip post
+var movie =          require('./movieModel');
 
 //make sure that every requests that hits this controller will pass through these functions
 router.use(bodyParser.urlencoded({ extended: true }))
@@ -25,6 +26,7 @@ router.use(methodOverride(function(req, res){
 //crud
 //build the REST operations at the base for movies
 router.route('/').get(function(req, res, next) {
+
     // @todo enable paginate /:page?*
     // var resultLimit = 10,
       // page = req.param('page') >= 0 ? req.param('page') : 1;
@@ -121,8 +123,7 @@ router.route('/').get(function(req, res, next) {
     });
 
     //get movie by id, for display
-    router.route('/:id')
-      .get(function(req, res) {
+    router.get('/:id', function(req, res) {
         mongoose.model('Movie').findById(req.id, function(err, movie){
           if(!err){
             console.log('GET Retrieving ID: ' + movie._id);
