@@ -25,9 +25,6 @@ You can now edit any files to customize your application first:
 
 Or even easier just spin it up to see what it does first.
 
-
-
-
 **Launching:**
 
 - Prior to launching, the main thing you need to do is look over the server settings and ports (./index.js and bin/www)  On the app server file make sure you adjust the IP address of the app livereload server to match the app servers ip.
@@ -59,3 +56,11 @@ The standard and normal way of launching would be the three-step process(do this
 - If something gets broken, as a debug if you’re not seeing error output, or after your done with development and just want to run it, try to run the default server in one of two ways `npm start`, `$ ./bin/www`.  This will normally get you any elusive errors that you were not seeing when running the gulp tasks if something goes awry.
 
 - During version control, don't commit anything until you can successfully run the `gulp develop` command, without seeing any lint or unit testing errors, etc…  Once its ready, then you would want to stop the server (ctrl+c on the terminal from which its being ran, or a `pkill` sent), then commit your changes. Rinse and repeat.
+
+### conventions
+- source is defined as master files, which are later tasked for build, etc..
+- top level dirs seperated by functional requirement for version control, and dependency mgmt.
+- assets folder
+-  includes source versions of all 'static' assets (imgages, css, js, )
+- doesnt include dependencys, vendors, things that belong in lib, config files, etc..
+-
