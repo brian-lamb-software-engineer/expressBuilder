@@ -1,5 +1,14 @@
-var mongoose = require('mongoose');
-var movieSchema = new mongoose.Schema({
+/**
+ * [mapper description]
+ * @type {[type]}
+ */
+var mapper = require('mongoose');
+
+/**
+ * [model description]
+ * @type {Object}
+ */
+var model = {
   name:String,
   length:Date,
   starring:String,
@@ -8,9 +17,16 @@ var movieSchema = new mongoose.Schema({
   retail:Boolean,
   inserted: {type: Date, default: Date.now},
   updated: {type: Date, default: Date.now}
-});
-mongoose.model('Movie', movieSchema);
+};
 
+/**
+ * [movieSchema description]
+ * @type {mapper}
+ */
+var object = new mapper.Schema(model);
+
+// compile it
+mapper.model('Movie', object);
 
 /**
  * Getters

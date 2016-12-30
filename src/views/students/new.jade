@@ -1,0 +1,20 @@
+extends ../layout
+
+block content
+  h1.
+    #{title}
+  form#formAddStudent(name='addStudent', method='post',action="/students")
+    p Student Name:
+      input#inputName(type='text', placeholder="eg. Joe Schmoe",  name='name')
+    p Career Major:
+      input#inputMajor(type='text', placeholder="eg. Field Biology",
+      | name='major')
+    p Dorm building:
+      input#inputDorm(type='number', placeholder="25",  name='dorm')
+    p Graduation year:
+      input#inputGraduation(type='number', placeholder="e.g. 2020",
+      | name='graduation_year')
+    p Is student active? (checked) )?
+      input#active(type='checkbox',name='active')
+    p
+      button#btnSubmit(type='submit') add

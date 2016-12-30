@@ -1,0 +1,17 @@
+extends ../layout
+
+block content
+  span.h2 #{student.name}
+  |  #{student.major}
+  p
+  p Class of: #{student.graduation_year}
+  p Dorm: #{student.dorm}
+  if ! student.active
+  p Student ID:
+    b  #{student._id}
+  p
+    span
+      Not
+    span  Active
+    br
+    i.small (active is boolean, change to checkbox or yes no, or something)

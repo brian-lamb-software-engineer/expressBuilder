@@ -1,10 +1,22 @@
-// Going with "mm", for Mongoose Mapper)
-var mm = require('mongoose');
-mm.connect('mongodb://127.0.0.1/mmdb');
+var mongoose = require('mongoose');
+var uri = 'mongodb://127.0.0.1/mmdb';
 
-// Use native promises, or use bluebird below, which is highly recommended
-// mm.Promise = global.Promise;
+// native promises
+//mongoose.connect(uri);
+
+//default method) (or leave all commented for default)
+////@TODO should need both this and the following?
+mongoose.Promise = global.Promise;
 // assert.equal(query.exec().constructor, global.Promise);
 
-// Use bluebird (needs to be defined to "Promise", which is default Promise obj)
-mm.Promise = require('bluebird');
+/**
+ * Plugging in Blueburd.js(highly recommended)
+ * There is a couple different ways, working on one, while holding onto what
+ * works, until the slimmest is found.
+ */
+// method 1)
+var options = { promiseLibrary: require('bluebird') };
+mongoose.connect(uri, options);
+// method 2)
+// needs to be defined to "Promise", which is default Promise obj
+//mongoose.Promise = require('bluebird');

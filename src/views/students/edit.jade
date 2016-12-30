@@ -1,0 +1,25 @@
+extends ../layout
+
+block content
+  span
+    | Student:
+  span.h2  #{student.name}
+  hr
+  form(action='/students/#{student._id}/edit', method='post', name='updatestudent', enctype='application/x-www-form-urlencoded')
+    div.input-prepend
+      span.add-on
+    p Name:  
+        input#inputName(type='text', value='#{student.name}', name='name')
+    p Major:
+      input#inputMajor(type='text', value='#{student.major}', name='major')
+    p Dorm Number:
+      input#inputDorm(type='text', value='#{student.dorm}', name='dorm')
+    p Graduation Year:
+      input#inputYear(type='number', value='#{student.year}', name='graduation_year')
+    p Is this student currently active?
+      input#inputActive(type='checkbox',name='active', checked=('#{student.active}' === 'true' ? "checked" : undefined))
+    p
+      input(type='hidden',value='PUT',name='_method')
+    p
+      button#btnSubmit(type='submit').
+        Update

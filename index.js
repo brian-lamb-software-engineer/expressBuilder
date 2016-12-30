@@ -41,11 +41,12 @@ var db =          require('./www/js/dbMongoose');
 var Promise =     require("bluebird");
 var app =         express();
 
-// CONTROLLERS
-var routes =      require('./www/js/indexController');
+
 var movies =      require('./www/js/movieController');
 var blobs =       require('./www/js/blobController');
-// var students =      require('./www/js/studentController');
+var students =    require('./www/js/studentController');
+//leave after MODELS, or will get error Schema hasn't been registered for model
+var routes =      require('./www/js/indexController');
 
 app.set('views', path.join(__dirname, 'www/views'));
 app.set('view engine', 'jade');
@@ -81,11 +82,14 @@ app.all('/*', function(req, res, next) {
 // are sure that authentication is not needed
 // app.all('/api/v1/*', [require('./js/validateRequestService')]);
 
+// load the router modules to open request handling
 app.use('/', routes);  //Note, ALL use statements can point to '/' instead for SPA (look at res.redirect's)
 //app.use('/users', users);
 app.use('/blobs', blobs); // Blobs
 app.use('/movies', movies); // Movies
-// app.use('/students', students); // Dogs
+app.use('/students', students); // Dogs
+
+//assets
 app.use("/css", express.static(__dirname + '/css')); //assets
 app.use("/js", express.static(__dirname + '/js')); //assets
 app.use("/images", express.static(__dirname + '/images')); //assets

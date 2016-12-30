@@ -9,7 +9,7 @@
   jshint =        require('gulp-jshint'),
   concat =        require('gulp-concat'),
   merge =         require('merge-stream'),
-  uglify =        require('gulp-uglify'),
+  // uglify =        require('gulp-uglify'),
   jasmine =       require('gulp-jasmine'),
   coffee =        require('gulp-coffee');
 
@@ -60,7 +60,7 @@ gulp.task('client-js', ['coffee-js'], function(){
     config.paths.controllers + '*.js'
     )
     .pipe(jshint())
-    // .pipe(uglify()) //breaks, why?
+    //.pipe(uglify()) //breaks, why?
     .pipe(gulp.dest(
         config.paths.pub + 'js/'
       ));
@@ -123,7 +123,7 @@ gulp.task('client-js', ['coffee-js'], function(){
   var pubJsFoot = merge(vendorFootJs, srcFootJs)
     // .pipe(order(vendorFootJs))
     .pipe(concat('foot.js'))
-    .pipe(uglify())
+    // .pipe(uglify())
     .pipe(gulp.dest(
       config.paths.pub + 'js/'
     ));
