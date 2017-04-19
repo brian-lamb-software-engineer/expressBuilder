@@ -1,0 +1,4 @@
+npm WARN deprecated jade@1.11.0: Jade has been renamed to pug
+npm WARN deprecated transformers@2.1.0: Deprecated, use jstransformer
+npm WARN deprecated gulp-minify-css@1.2.4: Please use gulp-clean-css
+
