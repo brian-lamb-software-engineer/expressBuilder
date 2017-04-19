@@ -1,0 +1,32 @@
+extends ../layout
+
+block content
+  div.row
+    div.col-md-2
+    div.col-md-8
+      span.h2 #{title}
+      span
+        a(href='/students/new') new
+      each student, i in students
+        div.panel.panel-default
+          div.panel-heading
+            panel-title.h4
+              a(href='/students/#{student._id}') #{student.name}
+              if student.major
+                  i.h6 #{student.major}
+            i.pull-right
+              a(href='/students/#{student._id}/edit') Edit
+          div.panel-body
+              if student.major
+                  p #{student.major}
+              if student.graduation_year
+                  p #{student.graduation_year}
+              if student.active
+                  p Active? #{student.active}
+              if student.major
+                  h6 #{studentmajor}
+          form(action='/students/#{student._id}/edit', method='POST', enctype='application/x-www-form-urlencoded')
+              input(type='hidden',value='DELETE',name='_method')
+              button(type='submit').
+                Delete
+    div.col-md-2

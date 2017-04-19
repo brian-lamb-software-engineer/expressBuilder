@@ -1,5 +1,5 @@
 /**
- * Bug controller / RESTful API CRUD  / router
+ * Bug controller
  * testing this type of api
  **/
 var express = require('express'),
@@ -21,9 +21,9 @@ router.use(methodOverride(function(req, res){
 
 //crud and REST API
 //build the REST operations at the base for blobs
-router.route('/').get(function(req, res, next) {
+router.get('/', function(req, res, next) {
       //duplicate this function in sequelize fashion (directly below)
-      // mongoose.model('Blob').find({}, function(err, blobs) {
+      // mm.model('Blob').find({}, function(err, blobs) {
       //   if(!err){
       //     //respond to both HTML and JSON. JSON responses require 'Accept: application/json;' in the Request Header
       //     res.format({
@@ -60,7 +60,7 @@ router.route('/').get(function(req, res, next) {
           dob = req.body.dob,
           company = req.body.company,
           isloved = req.body.isloved;
-          mongoose.model('Blob').create({
+          mm.model('Blob').create({
             name: name,
             badge: badge,
             dob: dob,
@@ -93,7 +93,7 @@ router.route('/').get(function(req, res, next) {
 
     //route this middleware to check id first
     router.param('id', function(req, res, next, id){
-      mongoose.model('Blob').findById(id, function(err, blob){
+      mm.model('Blob').findById(id, function(err, blob){
         if(!err){
           req.id = id;
           next();
@@ -120,9 +120,9 @@ router.route('/').get(function(req, res, next) {
     //   res.json(blob);
     // }
 
-    router.route('/:id')
-      .get(function(req, res) {
-        mongoose.model('Blob').findById(req.id, function(err, blob){
+
+    router.get'/:id', function(req, res) {
+        mm.model('Blob').findById(req.id, function(err, blob){
           if(!err){
             console.log('GET Retrieving ID: ' + blob._id);
             var blobdob = blob.dob.toISOString();
@@ -144,12 +144,12 @@ router.route('/').get(function(req, res, next) {
         });
       });
 
+//DEBUG, //if editing doesnt work, change from .get to .router.().get
       //edit and update via form
       //get by id
-      router.route('/:id/edit')
-        .get(function(req, res){
+      router.get('/:id/edit', function(req, res){
           //search
-          mongoose.model('Blob').findById(req.id, function(err, blob){
+          mm.model('Blob').findById(req.id, function(err, blob){
             if(!err){
               //Return the blob
               console.log('GET Retrieving ID: ' + blob._id);
@@ -181,7 +181,7 @@ router.route('/').get(function(req, res, next) {
               company = req.body.company,
               isloved = req.body.isloved;
               //find by id
-              mongoose.model('Blob').findById(req.id, function (err, blob){
+              mm.model('Blob').findById(req.id, function (err, blob){
                 blob.update({
                   name: name,
                   badge: badge,
@@ -208,7 +208,7 @@ router.route('/').get(function(req, res, next) {
       //delete
       router.delete('/:id/edit', function(req, res){
         //find by id
-        mongoose.model('Blob').findById(req.id, function(err, blob){
+        mm.model('Blob').findById(req.id, function(err, blob){
           if(!err){
             console.log('DELETE removing ID: ' + blob._id);
             res.format({

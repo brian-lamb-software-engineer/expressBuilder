@@ -1,12 +1,22 @@
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://127.0.0.1/mmdb');
+var uri = 'mongodb://127.0.0.1/mmdb';
 
-// Use native promises
-// mongoose.Promise = global.Promise;
+// native promises
+//mongoose.connect(uri);
+
+//default method) (or leave all commented for default)
+////@TODO should need both this and the following?
+mongoose.Promise = global.Promise;
 // assert.equal(query.exec().constructor, global.Promise);
 
-// Use bluebird
-mongoose.Promise = require('bluebird');
-
-// var assert = require('assert');
-// assert.equal(query.exec().constructor, require('bluebird'));
+/**
+ * Plugging in Blueburd.js(highly recommended)
+ * There is a couple different ways, working on one, while holding onto what
+ * works, until the slimmest is found.
+ */
+// method 1)
+var options = { promiseLibrary: require('bluebird') };
+mongoose.connect(uri, options);
+// method 2)
+// needs to be defined to "Promise", which is default Promise obj
+//mongoose.Promise = require('bluebird');

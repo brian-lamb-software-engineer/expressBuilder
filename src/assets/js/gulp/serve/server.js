@@ -9,7 +9,7 @@
     gutil =         require('gulp-util'),
     watch = require('gulp-watch'),
     runSequence =  require('run-sequence'),
-    server = [],
+    //server = [],
     file=null;
 
 /**
@@ -33,9 +33,10 @@ gulp.task('gls', function(){
    * here, etc..
    **/
    gutil.log('gls starting, check for gls started next');
-   server = gls.new('bin/www');
 
+   var server = gls.new('bin/www');
    server.start();
+
    gutil.log('gls started, setting a watch on the pub files');
 
    //gulp.watch(config.paths.pub + '*.js', server.start.bind(server));
@@ -44,6 +45,14 @@ gulp.task('gls', function(){
     gutil.log('LIVE RELOAD LOADED (timeout expired)');
     gutil.log('live reload actively watching for changes on the pub side.');
     gutil.log('Bang away!');
+
+    //watch main node server index.js app
+    gulp.watch(['index.js'], function(file){
+      //server.notify.apply(server, [file]);
+      gutil.log('index.js restart - check for browser response');
+      // server.stop.bind(server);
+      server.start.bind(server)(file);
+    }); //restart server
 
     /**
      * note port of gulp live server is established here, since were using
@@ -60,14 +69,17 @@ gulp.task('gls', function(){
 
     gulp.watch([
         config.paths.pub + 'js/**/*.js',
-        config.paths.pub + 'views/**/*.jade'], function(file){
-      gutil.log('pub side - triggering server bind ');
-      server.notify.apply(server, [file,
-         '/home/wolfdogg/sites/wolfdogg.org/index.js']);
-      server.stop.bind(server)
-      server.start.bind(server)
-      gutil.log('client restart - check for browser response');
-    }); //watch the server too
+        config.paths.pub + 'views/**/*.jade'
+      ],
+      function(file){
+        gutil.log('pub side - triggering server bind ');
+        server.notify.apply(server, [file]);
+        //server.stop.bind(server)
+        //server.start.bind(server)
+        gutil.log('client restart - check for browser response');
+      }); //watch the server too
+
+
   }, 1500);
  });
 
@@ -78,10 +90,10 @@ gulp.task('gls', function(){
      gutil.log('Notifying you, ready to serve!');
  });
 
- /**
-  * Task notifyReloadServer
-  */
- gulp.task('notifyReloadServer', function(){
-     gutil.log('Notifying reload of server');
-     server.start.bind(server);
- });
+ // /**
+ //  * Task notifyReloadServer
+ //  */
+ // gulp.task('notifyReloadServer', function(server){
+ //     gutil.log('Notifying reload of server');
+ //     server.start.bind(server);
+ // });

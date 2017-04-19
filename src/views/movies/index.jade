@@ -4,24 +4,34 @@ block content
   div.row
     div.col-md-2
     div.col-md-8
-      span.h2 #{title} 
-      span
-        a(href='/movies/new') new
+      div.header
+        span.h2 #{title}
+        span
+          a(href='/movies/new')
+            i.fa.fa-plus-circle
       each movie, i in movies
         div.panel.panel-default
+          span.pull-right
+            form(action='/movies/#{movie._id}/edit', method='post',
+              enctype='application/x-www-form-urlencoded')
+              a.btn.btn-default
+                button.fa.fa-trash-o(type='submit')
+              input(type='hidden',value='DELETE',name='_method')
+          span.pull-right
+            a.btn.btn-default(href='/movies/#{movie._id}/edit')
+              i.fa.fa-edit.fa-align-right
           div.panel-heading
             panel-title.h4
               a(href='/movies/#{movie._id}') #{movie.name}
               if movie.year
-                  i.h6 #{movie.year}
-            i.pull-right
-              a(href='/movies/#{movie._id}/edit') Edit
+                i.h6 #{movie.year}
           div.panel-body
-              if movie.notes
-                  p #{movie.notes}
-              if movie.starring
-                  h6 #{movie.starring}
-              input(type='hidden',value='DELETE',name='_method')
-              button(type='submit').
-                Delete
+            if movie.starring
+              ul
+                li.fa.fa-user-times
+                  span.h6 #{movie.starring}
+            if movie.notes
+              ul
+                li.fa.fa-info
+                  span #{movie.notes}
     div.col-md-2
