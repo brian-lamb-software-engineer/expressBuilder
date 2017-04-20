@@ -56,8 +56,6 @@ error_log
 google*.html
 #
 #
-# ignore db file
-movies.csv
 #
 #wordpress installation embedded inside main dir
 /cmswp
