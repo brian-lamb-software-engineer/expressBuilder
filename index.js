@@ -87,7 +87,7 @@ app.use('/', routes);  //Note, ALL use statements can point to '/' instead for S
 //app.use('/users', users);
 app.use('/blobs', blobs); // Blobs
 app.use('/movies', movies); // Movies
-app.use('/students', students); // Dogs
+//app.use('/students', students); // Dogs
 
 //assets
 app.use("/css", express.static(__dirname + '/css')); //assets

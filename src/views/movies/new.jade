@@ -3,7 +3,7 @@ extends ../layout
 block content
   h1.
     #{title}
-  form#formAddMovie(name='addMovie', method='post',action="/movies")
+  form#formAddMovie(name='addMovie',method='post',action="/movies")
     p Name:
       input#inputName(type='text', placeholder="eg. 42 Winds",  name='name')
     p Starring:

@@ -16,7 +16,7 @@ var router =        express.Router();
 var mongoose =      require('mongoose');
 var bodyParser =    require('body-parser');//parse post
 var methodOverride = require('method-override');//manip post
-var doc =          require('./blobModel');
+var blob =          require('./blobModel');
 
 /**
  * ExpressJS MethodOverride
@@ -72,18 +72,18 @@ router.route('/')
                badge: badge,
                dob: dob,
                isloved: isloved
-             }, function (err, doc) {
+             }, function (err, blob) {
                if (!err){
-                 //doc was created
+                 //blob was created
                  console.log('New Blob');
-                 console.log(doc);
+                 console.log(blob);
                  res.format({
                    html: function(){
                      res.location('blobs'); //set address bar loc
                      res.redirect('/blobs'); //success page forward
                    },
                    json: function(){
-                     res.json(doc);
+                     res.json(blob);
                    }
                  })
                } else {
@@ -104,9 +104,9 @@ router.route('/')
 
   //route this middleware to check id first
   router.param('id', function(req, res, next, id){
-    mongoose.model('Blob').findById(id, function(err, doc){
+    mongoose.model('Blob').findById(id, function(err, blob){
       if(!err){
-        req.id = id;
+        req.id = id; //commented
         next();
       } else {
         console.log(id + ' was not found');
@@ -125,27 +125,30 @@ router.route('/')
     });
   });
 
-  //get doc by id, for display
+  //get blob by id, for display
 
   // router.get('/:id', crud, function(req, res) {
-  //   res.json(doc);
+  //   res.json(blob);
   // }
   router.route('/:id')
     .get(function(req, res) {
-      mongoose.model('Blob').findById(id, function(err, doc){
+      mongoose.model('Blob').findById(req.id, function(err, blob){
         if(!err){
-          console.log('GET Retrieving ID: ' + doc._id);
-          var dob = doc.dob.toISOString();
+          console.log('validating ' + blob._id + ' exists'); //works
+          // console.log('GET Retrieving ID: ' + req);
+          // console.log('GET Retrieving ID: ' + req._id);
+          //console.log('GET Retrieving ID: ' + blob._id); //commented
+          var dob = blob.dob.toISOString();
           dob = dob.substring(0, dob.indexOf('T'));
           res.format({
             html: function(){
               res.render('blobs/show', {
                 'blob' : dob,
-                'blob' : doc
+                'blob' : blob
               });
             },
             json: function(){
-              res.json(doc);
+              res.json(blob);
             }
           })
         } else {
@@ -158,24 +161,28 @@ router.route('/')
     //get by id
     router.route('/:id/edit')
       .get(function(req, res){
-        //search
-        mongoose.model('Blob').findById(req.id, function(err, doc){
+        //console.log("blob is" + blob); //blob is unavailable, commented
+        // console.log("req is" + req); //unavailable at the moment, using  /:id/edit
+        // console.log("_id is" + _id); //not avaialable at the moment
+        //search by parameter "id"
+        //mongoose.model('Blob').findById(id, function(err, blob){
+        mongoose.model('Blob').findById(req.id, function(err, blob){
           if(!err){
-            //Return the doc
-            console.log('GET Retrieving ID: ' + doc._id);
+            //Return the blob
+            console.log('GET Retrieving ID: ' + blob._id);
             //format Date
-            var dob = doc.dob.toISOString();
+            var dob = blob.dob.toISOString();
             dob = dob.substring(0, dob.indexOf('T'));
             res.format({
               html: function(){
                 res.render('blobs/edit', {
-                  title: 'Blob' + doc._id,
+                  title: 'Blob' + blob._id,
                   "dob": dob,
-                  "blob": doc
+                  "blob": blob
                 })
               },
               json: function(){
-                res.json(doc);
+                res.json(blob);
               }
             });
           } else {
@@ -192,8 +199,8 @@ router.route('/')
         var isloved = req.body.isloved;
 
         //find by id
-        mongoose.model('Blob').findById(req.id, function (err, doc){
-          doc.update({
+        mongoose.model('Blob').findById(req.id, function (err, blob){
+          blob.update({
             name: name,
             badge: badge,
             dob: dob,
@@ -203,10 +210,10 @@ router.route('/')
               //response  //alternatively you can a add new view that shows success
               res.format({
                 html: function(){
-                  res.redirect('/blobs/' + doc._id); //go back to page
+                  res.redirect('/blobs/' + blob._id); //go back to page
                 },
                 json: function(){
-                  res.json(doc); //show updated vals
+                  res.json(blob); //show updated vals
                 }
               });
             } else {
@@ -218,11 +225,11 @@ router.route('/')
     //delete
     .delete(function(req, res){
       //find by id
-      mongoose.model('Blob').findById(req.id, function(err, doc){
+      mongoose.model('Blob').findById(req.id, function(err, blob){
         if(!err){
           //remove it from Mongo
-          doc.remove(function (err, doc) {
-            console.log('DELETE removing ID: ' + doc._id);
+          blob.remove(function (err, blob) {
+            console.log('DELETE removing ID: ' + blob._id);
             res.format({
               html: function(){
                 res.redirect('/blobs');
@@ -230,7 +237,7 @@ router.route('/')
               json: function(){
                 res.json({
                   message: 'deleted',
-                  item: doc
+                  item: blob
                 });
               }
             });
