@@ -4,63 +4,75 @@ Product Documentation has now been moved to the wiki, please visit there for det
 
 ### Basic instructions
 
-**Procurement:**
+**Procurement and Installation**
 
-- Clone
+- Clone to a new project dir on your server
 
-- cd to project dir in a terminal
+- `cd` to project dir in a terminal
 
-- Install packages `npm install` into the project dir
+- Install the applicaion dependencies `npm install`
 
+- To bootstrap, run `gulp`.  Then test the app at http://localhost:3003 You can adjust the domain name if your server is setup up differently, or are testing on a remote intranet or internet server.  There is no need for a reverse proxy setup.  
 
-You can now edit any files to customize your application first:
+You are now free to edit the files while the server is running, and immediatly reap. This is because when you save them, the nodemon and livereload will takeover and send a new head request to any open browsers that you have the application open with, changes take effect automatically.  No need for a refresh.
 
-  a) build out your app; source files (src/) and tests (tests/)
+Note that there is a build process to keep it slim, minified and compressed, as well as linted, so when you run `gulp` it will clean out most files in the public (`./www`) dir automatically, and lay in a new compressed build, and a new version tag.  This is the only directory thats served, and all that really needs to be deployed.  
 
-  b) add or alter the tasker tasks to customize your app(gulpfile.js)
+Your can now start development on your new infrastructure.
+  a)  For editing the application, see the MVC structured source files in `./src/` and place your tests in `./tests/`.
+  b) For editing the server itself see `./bin/www` and the application bootstrapper and router `./.index.js`
 
-  c) customize your application server (index.js)
+**Adding new architecture**
 
-  d) go to npm and add your needed modules
+When your ready to expand the application:
 
-Or even easier just spin it up to see what it does first.
+If you want to add anything, first look for a suitable module here https://www.npmjs.com/.  If you find one, install the module directly using npm e.g. `npm install --save redux`
 
-**Launching:**
+If you cant find your module at npm, but find it at github;
+  a) add the git hub source to your package json
 
-- Prior to launching, the main thing you need to do is look over the server settings and ports (./index.js and bin/www)  On the app server file make sure you adjust the IP address of the app livereload server to match the app servers ip.
+  b) then add a new gulp vendor task, by copying one of the existing vendors tasks in `./src/assets/js/gulp/vendor` to a new file in the same folder.
 
-- Launching can be a one step process here. There is a task included for this.  To accomplish this and be done with it you would simply run the following command one time `$ gulp all`.  Now you would be able to open your browser to the apps default address:port(see below), and start working on your source files right off the top.  However if your more interested in customizing the output application itself, then you will need to learn the easy 3-step process outlined below. For instance maybe you want less instead of sass, or maybe you want to begin slipping in Angular right away to fast-track modern ui develoment.
+  c)inject that task into `./src/assets/js/gulp/build/js.js` in `vendorHeadJs` or `vendorFootJs`, depending on if you need it to load before or after your html. Always opt for vendorFootJs if it works, so your application will stay speedy. Fall back to vendorHeadJs if your not sure, or if your new module is not accessible by your application.
 
-The standard and normal way of launching would be the three-step process(do this each time you start your day):  
+**Before Launching:**
 
-- First, build your vendors (if you haven't already, have recently updated vendor variables or node_modules, or recent updated your vendor tasks) `$ gulp compile-vendors` .  This will move vendors prescribed in the gulp task from your node modules out to the vendor dir for customization and inclusion
+- Prior to launching;
+  a) look over the server settings and ports on `bin/www`  
+  b) On the bootstrapper/router `./index.js` make sure you adjust the IP address of the app livereload server to match the app servers ip.
 
-- Next, run a build from your source files (the most used starting point on a daily basis) `$ gulp build`.  This will move the source files into a new build output dir (e.g. www or public) for http hosting, refresh and viewing shortly.
+**Fine grained control of gulp tasks**
 
-- Finally, run the development server `$ gulp develop`.  This includes a special task, a "live reload" server, and also lints, hints, and runs your unit tests just prior to firing up the server so that you can get a quick visual checkover of both your server, and application files and their integrity, and immediately prior to beginning your new development
+- If you want more fine grained control over the gulp tasks, i.e to run them separately, see the following tasks
 
-- You can now open your browser to the default port http:/127.0.0.1:3000, or using the IP of your server here if the browser client is on a different machine than the node server.   With this live reload server in its default watch mode, you can immediately begin to edit and save files while your browser slaves to the new adjustments automatically.  This has been found to be working on both windows chrome and windows firefox at least, thus far.
+  compile-vendors) Rebuilds the vendors only. This will rebuild for any recent updated vendor variables, and recompile them.  `$ gulp compile-vendors`.  This effectively moves vendors prescribed in the gulp task from your node modules out to `./vendor` for any forther customization then finally inclusion
 
-- The idea of any new development now will primarily depend on your need.  If you want an API, most of your work will be in the models and controllers.  If you want a full website, alot of your work will be accessing these new models and controllers by building a ui, which by default is the jade view templates located in view/.  
+  build) Compresses css, and js, builds jade/pug html templates, and lints the js source files into a new build output dir `./www` for serving. `$ gulp build`
 
-- During your development, the watch command is ready for you as you save it refreshes your browser in certain ways, depending on the file type that you edit.  You can fully tap into, and customize this watch functionality in the gulp `watch` task.  
+  develop) The final task, which bootstraps the application by running tests, linting, then starting the server, and its watch.  `$ gulp develop`
+
+  You can fully tap into, and customize the watch functionality in the gulp `watch` task.  
 
 **Basic task flow:**
 
-- During development of your source files, as you build out your application, if you have edited any tasks, or have done something to error out your server, or the server is stopped for some reason, simply run the following to restart it `$ gulp build && gulp develop;`, then resume development.
-
 - If any of your edits are done to the vendor tasks, be sure to run your task to recompile them before you rebuild `$ gulp compile-vendors`.  If you know you will be running the `build` and `develop` tasks after, then instead of running the `compile-vendors`, there is another task for this, called `all`, so just run the following `$ gulp all`.  This will `compile-vendors`, then `build`, then `develop`
 
-- The default task, i.e. `$ gulp` is equivalent to `$ gulp develop`, which doesn't rebuild, it just starts the watch. This task is for once you get things worked out on your application, have your tasks set up like you like, then just day by day develop thing, you would just really need to get the watcher and server started.  Do this before editing any files.  As you make your first edit, the watch will take over, and run the build tasks for you on the fly, lint them, etc., then live-reload.  
+### Troubleshooting
 
-- If something gets broken, as a debug if you’re not seeing error output, or after your done with development and just want to run it, try to run the default server in one of two ways `npm start`, `$ ./bin/www`.  This will normally get you any elusive errors that you were not seeing when running the gulp tasks if something goes awry.
+- If something gets broken, as a debug if you’re not seeing error output, or after your done with development and just want to run it, try to run the server with the debug switch `npm run dev`, `$ nodemon --debug`.  This will normally get you any elusive errors that you were not seeing when running the gulp tasks if something goes awry.
 
-- During version control, don't commit anything until you can successfully run the `gulp develop` command, without seeing any lint or unit testing errors, etc…  Once its ready, then you would want to stop the server (ctrl+c on the terminal from which its being ran, or a `pkill` sent), then commit your changes. Rinse and repeat.
+- There is a commented DEBUG Self executing function at the top of both `./gulpfle.js` and `./index.js`.  Uncommenting this will get you a nice backtrace, where you can look at the top of it to see what command was ran, and some parameters that might be helpful to debug.
 
-### conventions
+** before commting **
+  a) During version control, don't commit anything until you can successfully run both `npm install` and `gulp`, without seeing any lint or unit testing errors, etc…  
+
+  b) Once its ready, then you would want to stop the server (ctrl+c on the terminal from which its being ran, or a `pkill` sent), then commit your changes.
+
+Rinse and repeat.
+
+### Conventions
 - source is defined as master files, which are later tasked for build, etc..
 - top level dirs seperated by functional requirement for version control, and dependency mgmt.
 - assets folder
--  includes source versions of all 'static' assets (imgages, css, js, )
-- doesnt include dependencys, vendors, things that belong in lib, config files, etc..
--
+- includes source versions of all 'static' assets (imgages, css, js, )
+- package doesnt include dependencys, vendors, things that belong in lib, config files, etc..
