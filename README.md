@@ -1,6 +1,6 @@
 ## expressBuilder
 
-More product documentation can be found on the wiki.  You can visit there for more details. https://github.com/wolfdogg/expressBuilder/wiki/About-expressBuilder. This docment is the most recent.
+ This docment is the most recent, however more product documentation can be found on the wiki.  You can visit there for more details. https://github.com/wolfdogg/expressBuilder/wiki/About-expressBuilder.
 
 ### Basic instructions
 
