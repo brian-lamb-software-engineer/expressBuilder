@@ -14,19 +14,21 @@ Product Documentation has now been moved to the wiki, please visit there for det
 
 - To bootstrap, run `gulp`.  Then test the app at http://localhost:3003 You can adjust the domain name if your server is setup up differently, or are testing on a remote intranet or internet server.  There is no need for a reverse proxy setup.  
 
-- You are now free to edit the files while the server is running, and immediatly reap. This is because when you save them, the nodemon and livereload will takeover and send a new head request to any open browsers that you have the application open with, changes take effect automatically.  No need for a refresh.
+- You are now free to edit the files while the server is running, and immediatly reap. This is because when you save them, the nodemon and livereload will takeover and send a new head request to any open browsers that you have the application open with.  The changes take effect automatically, There is normally need to refresh your browser.
 
 - Note that there is a build process to keep it slim, minified and compressed, as well as linted, so when you run `gulp` it will clean out most files in the public (`./www`) dir automatically, and lay in a new compressed build, and a new version tag.  This is the only directory thats served and all that needs to be deployed.  
 
-- You can now start development on your new infrastructure.
+### Development
 
-  a)  For editing the application, see the MVC structured source files in `./src/` and place your tests in `./tests/`.
+You can now start development on your new infrastructure.
 
-  b) For editing the server itself see `./bin/www` and the application bootstrapper and router `./.index.js`
+- For editing the application, see the MVC structured source files in `./src/` and place your tests in `./tests/`.
+
+- For editing the server itself see `./bin/www` and the application bootstrapper and router `./.index.js`
 
 **Adding new architecture**
 
-- When your ready to expand the application:
+When your ready to expand the application:
 
 - If you want to add anything, first look for a suitable module here https://www.npmjs.com/.  If you find one, install the module directly using npm e.g. `npm install --save redux`
 
@@ -40,11 +42,11 @@ Product Documentation has now been moved to the wiki, please visit there for det
 
 **Before Launching:**
 
-- Prior to launching;
+Prior to launching:
 
   a) look over the server settings and ports on `bin/www`  
 
-  b) On the bootstrapper/router `./index.js` make sure you adjust the IP address of the app livereload server to match the app servers ip.
+  b) On the bootstrapper/router `./index.js` make sure you adjust the IP address of the app livereload server to match the app servers ip as seen from your development browser.
 
 **Fine grained control of gulp tasks**
 
