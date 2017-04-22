@@ -14,11 +14,11 @@ Product Documentation has now been moved to the wiki, please visit there for det
 
 - To bootstrap, run `gulp`.  Then test the app at http://localhost:3003 You can adjust the domain name if your server is setup up differently, or are testing on a remote intranet or internet server.  There is no need for a reverse proxy setup.  
 
-You are now free to edit the files while the server is running, and immediatly reap. This is because when you save them, the nodemon and livereload will takeover and send a new head request to any open browsers that you have the application open with, changes take effect automatically.  No need for a refresh.
+- You are now free to edit the files while the server is running, and immediatly reap. This is because when you save them, the nodemon and livereload will takeover and send a new head request to any open browsers that you have the application open with, changes take effect automatically.  No need for a refresh.
 
-Note that there is a build process to keep it slim, minified and compressed, as well as linted, so when you run `gulp` it will clean out most files in the public (`./www`) dir automatically, and lay in a new compressed build, and a new version tag.  This is the only directory thats served and all that needs to be deployed.  
+- Note that there is a build process to keep it slim, minified and compressed, as well as linted, so when you run `gulp` it will clean out most files in the public (`./www`) dir automatically, and lay in a new compressed build, and a new version tag.  This is the only directory thats served and all that needs to be deployed.  
 
-Your can now start development on your new infrastructure.
+- You can now start development on your new infrastructure.
 
   a)  For editing the application, see the MVC structured source files in `./src/` and place your tests in `./tests/`.
 
@@ -26,7 +26,7 @@ Your can now start development on your new infrastructure.
 
 **Adding new architecture**
 
-When your ready to expand the application:
+- When your ready to expand the application:
 
 - If you want to add anything, first look for a suitable module here https://www.npmjs.com/.  If you find one, install the module directly using npm e.g. `npm install --save redux`
 
