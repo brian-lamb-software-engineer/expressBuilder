@@ -20,7 +20,7 @@ Product Documentation has now been moved to the wiki, please visit there for det
 
 ### Development
 
-You can now start development on your new infrastructure.
+After completing the above steps, your new infrastructure is ready for development.
 
 - For editing the application, see the MVC structured source files in `./src/` and place your tests in `./tests/`.
 
@@ -76,7 +76,7 @@ Prior to launching:
 
   b) Once its ready, then you would want to stop the server (ctrl+c on the terminal from which its being ran, or a `pkill` sent), then commit your changes.
 
-- Rinse and repeat.
+  c) Rinse and repeat.
 
 ### Conventions
 - source is defined as master files, which are later tasked for build, etc..
