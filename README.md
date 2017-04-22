@@ -28,9 +28,9 @@ Your can now start development on your new infrastructure.
 
 When your ready to expand the application:
 
-If you want to add anything, first look for a suitable module here https://www.npmjs.com/.  If you find one, install the module directly using npm e.g. `npm install --save redux`
+- If you want to add anything, first look for a suitable module here https://www.npmjs.com/.  If you find one, install the module directly using npm e.g. `npm install --save redux`
 
-If you cant find your module at npm, but find it at github;
+- If you cant find your module at npm, but find it at github:
 
   a) add the git hub source to your package json
 
@@ -50,13 +50,13 @@ If you cant find your module at npm, but find it at github;
 
 - If you want more fine grained control over the gulp tasks, i.e to run them separately, see the following tasks
 
-  compile-vendors) Rebuilds the vendors only. This will rebuild for any recent updated vendor variables, and recompile them.  `$ gulp compile-vendors`.  This effectively moves vendors prescribed in the gulp task from your node modules out to `./vendor` for any forther customization then finally inclusion
+  a) `$ gulp compile-vendors` Rebuilds the vendors only. This will rebuild for any recent updated vendor variables, and recompile them.  .  This effectively moves vendors prescribed in the gulp task from your node modules out to `./vendor` for any forther customization then finally inclusion
 
-  build) Compresses css, and js, builds jade/pug html templates, and lints the js source files into a new build output dir `./www` for serving. `$ gulp build`
+  b) `$ gulp build` Compresses css, and js, builds jade/pug html templates, and lints the js source files into a new build output dir `./www` for serving.
 
-  develop) The final task, which bootstraps the application by running tests, linting, then starting the server, and its watch.  `$ gulp develop`
+  c) `$ gulp develop` The final task, which bootstraps the application by running tests, linting, then starting the server, and its watch.  
 
-  You can fully tap into, and customize the watch functionality in the gulp `watch` task.  
+- You can fully tap into, and customize the watch functionality in the gulp `watch` task.  
 
 **Basic task flow:**
 
@@ -68,13 +68,13 @@ If you cant find your module at npm, but find it at github;
 
 - There is a commented DEBUG Self executing function at the top of both `./gulpfle.js` and `./index.js`.  Uncommenting this will get you a nice backtrace, where you can look at the top of it to see what command was ran, and some parameters that might be helpful to debug.
 
-** before commting **
+**Before commting**
 
   a) During version control, don't commit anything until you can successfully run both `npm install` and `gulp`, without seeing any lint or unit testing errors, etc…  
 
   b) Once its ready, then you would want to stop the server (ctrl+c on the terminal from which its being ran, or a `pkill` sent), then commit your changes.
 
-Rinse and repeat.
+- Rinse and repeat.
 
 ### Conventions
 - source is defined as master files, which are later tasked for build, etc..
