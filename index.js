@@ -26,7 +26,22 @@ when starting server, client-js task, an error;
  ^
       (this error was related to a missing require, in this case was a typo)
  *
- */
+ * ENOENT
+ *  DEBUG FUNCTION, UNCOMMENT WHEN YOU SEE ENOENT or other errors, to find the
+ *  back trace. Put at top of executing script, e.g. index.js or gulpfile.js
+ // (function() {
+ //     var childProcess = require("child_process");
+ //     var oldSpawn = childProcess.spawn;
+ //     function mySpawn() {
+ //         console.log('spawn called');
+ //         console.log(arguments);
+ //         var result = oldSpawn.apply(this, arguments);
+ //         return result;
+ //     }
+ //     childProcess.spawn = mySpawn;
+ // })();
+*/
+
 var express =     require('express');
 var path =        require('path');
 var favicon =     require('serve-favicon');
@@ -40,7 +55,6 @@ var db =          require('./www/js/dbMongoose');
 //var db =        require('./www/js/dbSequelize');
 var Promise =     require("bluebird");
 var app =         express();
-
 
 var movies =      require('./www/js/movieController');
 var blobs =       require('./www/js/blobController');
@@ -76,6 +90,7 @@ app.all('/*', function(req, res, next) {
   }
 });
 
+
 // Auth Middleware - This will check if the token is valid
 // Only the requests that start with /api/v1/* will be checked for the token.
 // Any URL's that do not follow the below pattern should be avoided unless you
@@ -85,9 +100,9 @@ app.all('/*', function(req, res, next) {
 // load the router modules to open request handling
 app.use('/', routes);  //Note, ALL use statements can point to '/' instead for SPA (look at res.redirect's)
 //app.use('/users', users);
-app.use('/blobs', blobs); // Blobs
-app.use('/movies', movies); // Movies
-//app.use('/students', students); // Dogs
+app.use('/blobs', blobs);
+app.use('/movies', movies);
+app.use('/students', students);
 
 //assets
 app.use("/css", express.static(__dirname + '/css')); //assets

@@ -49,6 +49,20 @@
  *
  * A fresh breath of air!
  */
+
+//DEBUG FUNCTION, UNCOMMENT WHEN YOU SEE ENOENT or other errors, to find the trace
+ // (function() {
+ //     var childProcess = require("child_process");
+ //     var oldSpawn = childProcess.spawn;
+ //     function mySpawn() {
+ //         console.log('spawn called');
+ //         console.log(arguments);
+ //         var result = oldSpawn.apply(this, arguments);
+ //         return result;
+ //     }
+ //     childProcess.spawn = mySpawn;
+ // })();
+
  var gulp = require('gulp'),
    gutil =         require('gulp-util'),
     runSequence =   require('run-sequence');
@@ -60,6 +74,10 @@
 
  /**
   * Task default
+  *   all -
+  *     -rebuilds vendors
+  *     -rebuilds pub(www) (builds jade html, css, uglifies and minifies js/css)
+  *     -lints js
+  *     -then starts the server
   */
- gulp.task('default', ['develop']);
-
+ gulp.task('default', ['all']);
