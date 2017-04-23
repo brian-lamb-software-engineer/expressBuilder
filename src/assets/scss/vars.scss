@@ -5,8 +5,7 @@
 //BODY
 $body-bg-color:     grey;
 $primary-bg-color:  white;
-//LIVERELOAD test uncomment below temporarily.
-//$primary-bg-color:  yellow;
+$body-bg-image:     url("/images/canvas-only-background.jpg");
 
 //TOP IMAGES @TODO
 // $head-bg-img-lg:    ../images/file.jpg;
@@ -15,11 +14,15 @@ $primary-bg-color:  white;
 // $banner-bg-img-sm:  ../images/file.jpg;
 // $main-bg-img-lg:    ../images/file.jpg;
 // $main-bg-img-sm:    ../images/file.jpg;
+$splash-image:      url("/images/aqua-splash-250px.jpg");
+$banner-logo:       url("/images/accipiter-logo-transparent.png");
 
 //FONT
 $font-size:         14px;
-$font-color:         #333;
-$font-family:       "Lucida Grande", Helvetica, Arial, sans-serif;
+// $font-color:         #333;
+$font-color:         white;
+//$font-family:       "Lucida Grande", Helvetica, Arial, sans-serif;
+$font-family:       "Open Sans";
 
 //BRAND
 $brand-blue:        #367EB8;

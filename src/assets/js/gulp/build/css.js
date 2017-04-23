@@ -16,9 +16,9 @@
  * @todo 	responsive includes per @media, and called via loader.scss
  */
 gulp.task('process-css', function(){
-    localScssPath = [
-      config.paths.assets + 'scss/styles.scss',
-      config.paths.assets + 'scss/media-overrides.scss'],
+    //order of inclusion doesnt work here for some reason, so instead just
+    //import them in the order you need, on the files themselves.
+    localScssPath = config.paths.assets + 'scss/styles.scss',
     localCssPath = [config.paths.assets + 'css/*.css'],
     outputCssName = 'styles.css';
 

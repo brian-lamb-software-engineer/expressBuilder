@@ -1,5 +1,8 @@
 /*==========  Mobile First Method  ==========*/
-// Always use the Mobile First method for RWD/AWD
+// Always use the Mobile First approach for RWD/AWD
+// @import this file at the bottom of styles.scss, so that it overrides them
+// with these larger device styles
+//
 //
 /* Custom, iPhone Retina */
 //@media only screen and (min-width : 320px) {}
@@ -45,7 +48,9 @@
   }
 }
 //
-/* LARGE Devices, Desktops */
+/* LARGE Devices, Desktops
+Since this is mobile first, the styles get made for small devices, and
+overridden here */
 @media only screen and (min-width : 992px) {
   body {
     /**
@@ -53,32 +58,64 @@
     */
     header {
       nav.row{
-        height:90px;
-        ul{
-          margin-top: 40px;
-          margin-right: 50px;
-          li{
-            font-size: 18px;
-            padding-right: 5px;
+        div{
+          padding: inherit;
+          ul{
+            margin-right: 50px;
+            li{
+              font-size: 18px;
+              padding-right: 5px;
+            }
           }
         }
+
       }
-      .row.banner{
-        height:145px;
+      .banner.row{
+        height:250px;
+        span{
+          height: 230px;
+          margin: 10px
+        }
+        span.logo{
+          height: 230px;
+          width: 350px;
+          background-size: 350px;
+        }
+        span.title{
+          width: 200px;
+        }
       }
-      .row.controlBar{
-        //height:40px;
+      .controlBar.row{
+        ul li a{
+          padding: 15px;
+        }
       }
     }
     /**
     * MAIN CONTENT COL STYLES
     */
     main{
+      padding-bottom: 50px;
     }
     /**
     * FOOTER STYLES
     */
     footer{
+      // height:200px;
+      padding-top: 25px;
+      span{
+        display: inline-block;
+        margin-top: inherit;
+        margin-left: 150px;
+        vertical-align: top;
+      }
+      // resets the margin-left back on the first span
+      span:first-child{
+        margin-left:0;
+      }
+      span:nth-child(2){
+        text-align:inherit;
+      }
     }
   }
 }

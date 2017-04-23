@@ -19,12 +19,15 @@
   * Generic Typography, and html styles, that can  be overridden later below on
   * a specific case to case basis
   */
-  a {
-    color: #00F;
-    text-decoration: none;
+  a, a:link, a:visited {
+    color: $font-color;
+    // text-decoration: none;
+  }
+  a:hover{
+    color: grey;
   }
   p {
-    text-indent: 30px;
+    // text-indent: 30px;
     line-height: 1.5;
   }
 
@@ -34,7 +37,8 @@
   */
   body {
     color: $font-color;
-    background-color: $body-bg-color;
+    // background-color: $body-bg-color;
+    background-image: $body-bg-image;
     font: $font-size $font-family;
     margin:0;
     letter-spacing: 0.2px;
@@ -43,40 +47,67 @@
     */
     header {
       nav.row{
-        background-color: $primary-bg-color;
+        // background-color: $primary-bg-color;
         //background-color: yellow;
+        height: 110px;
         div{ //or col-xs-12, or use wildcard col-* col-xs* etc.  (Forgot what wildcard is)
             padding: 0;
           ul{
+            margin-top: 60px;
+            margin-bottom: 0;
             li{
               font-size: 16px;
               font-weight: bold;
               padding: 2px;
+              a{
+                text-decoration: underline;
+                padding-bottom: 0;
+              }
             }
           }
         }
       }
-      .row.banner{
-        background-color: $brand-blue;
-        height:70px;
+      .banner.row{
+        // background-color: $brand-blue;
+        height:170px;
+        background-image: $splash-image;
+        // overflow: hidden;
+        padding:0;
+        span.logo{
+          height: 150px;
+          width: 250px;
+          background-image: $banner-logo;
+          //background-size: contain;
+          background-size: 240px;
+          background-repeat: no-repeat;
+          margin: 3px 0 3px 3px;
+        }
+        span.title{
+          height: 50px;
+          display: inline-block;
+          width: 100px;
+          margin-left: -130px;
+          margin-top: 120px;
+          font-size: 36px;
+        }
       }
-      .row.controlBar{
+      .controlBar.row{
+        height:50px;
         ul {
           li {
             a{
-              color: #666;
+              padding: 5px 0;
             }
           }
         }
-        background-color: $primary-bg-color;
-        height:40px;
+        // background-color: $primary-bg-color;
       }
     }
     /**
     * MAIN CONTENT COL STYLES
     */
     main{
-      background-color: $primary-bg-color;
+      padding-bottom: 35px;
       .header{
           margin-bottom: 15px;
           margin-top: -32px;
@@ -118,7 +149,19 @@
     * FOOTER STYLES
     */
     footer{
-      background-color: $brand-blue;
+      padding:35px;
+      min-height:150px;
+      background-image: $splash-image;
+      span{
+        display: block;
+        margin-bottom: 20px;
+      }
+      span:nth-child(2){
+        text-align:right;
+      }
     }
   }
 }
+//
+//IMPORTING LARGER DEVICES HERE
+@import "media-overrides.scss";
