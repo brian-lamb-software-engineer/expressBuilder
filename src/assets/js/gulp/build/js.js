@@ -9,7 +9,7 @@
   jshint =        require('gulp-jshint'),
   concat =        require('gulp-concat'),
   merge =         require('merge-stream'),
-  // uglify =        require('gulp-uglify'),
+  uglify =        require('gulp-uglify'),
   jasmine =       require('gulp-jasmine'),
   coffee =        require('gulp-coffee');
 
@@ -40,7 +40,7 @@ gulp.task('client-js', ['coffee-js'], function(){
       config.paths.models + '*.js'
     )
     .pipe(jshint())
-    // .pipe(uglify()) //breaks, why?
+    .pipe(uglify())
     .pipe(gulp.dest(
         config.paths.pub + 'js/'
       ));
@@ -50,7 +50,7 @@ gulp.task('client-js', ['coffee-js'], function(){
       config.paths.services + '*.js'
     )
     .pipe(jshint())
-    // .pipe(uglify()) //breaks, why?
+    .pipe(uglify())
     .pipe(gulp.dest(
         config.paths.pub + 'js/'
       ));
@@ -88,9 +88,10 @@ gulp.task('client-js', ['coffee-js'], function(){
 
   // load this file only on your template head
   var pubJsHead = merge(vendorHeadJs,srcHeadJs)
+    //jshinting VENDORS here
     .pipe(jshint())
     .pipe(concat('head.js'))
-    // .pipe(uglify()) //breaks, why?
+    .pipe(uglify()) // TRY NOT TO UGLIFY VENDORS, instead, use minified version
     .pipe(gulp.dest(
       config.paths.pub + 'js/'
     ));

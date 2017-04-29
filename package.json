@@ -2,16 +2,15 @@
   "name": "mmdb",
   "version": "0.0.1",
   "private": true,
-
   "scripts": {
     "start": "node ./bin/www",
-
-    "//": [ "NODEMON addition",
-            "run like this 'npm run dev'",
-            "Note, you might need to add nodemon to your PATH for GULP use" ],
+    "//": [
+      "NODEMON addition",
+      "run like this 'npm run dev'",
+      "Note, you might need to add nodemon to your PATH for GULP use"
+    ],
     "dev": "nodemon --debug ./bin/www"
   },
-
   "dependencies": {
     "bluebird": "^3.4.6",
     "body-parser": "^1.17.1",
@@ -50,10 +49,9 @@
     "method-override": "^2.3.8",
     "mongoose": "^4.9.5",
     "morgan": "^1.8.1",
-    "serve-favicon": "^2.4.2",
-    "run-sequence": "^1.2.2"
+    "run-sequence": "^1.2.2",
+    "serve-favicon": "^2.4.2"
   },
-
   "devDependencies": {
     "connect-livereload": "^0.6.0",
     "gulp-live-server": "0.0.30",
@@ -62,30 +60,20 @@
     "nodemon": "^1.11.0",
     "sequelize": "^3.30.4"
   },
-
   "description": "Product Documentation has now been moved to the wiki, please visit there for details.  https://github.com/wolfdogg/expressBuilder/wiki/About-expressBuilder",
   "main": "index.js",
   "directories": {
     "test": "tests"
   },
-
   "repository": {
     "type": "git",
     "url": "git+https://github.com/brian-lamb-software-engineer/expressBuilder.git"
   },
-
   "author": "brian lamb",
   "license": "MIT",
-
   "bugs": {
     "url": "https://github.com/brian-lamb-software-engineer/expressBuilder/issues"
   },
-
   "homepage": "https://github.com/brian-lamb-software-engineer/expressBuilder#readme",
-
-  "//": " THIS IS HOW YOU ADD COMMENTS",
-  "//": [ "multi line comment uses an array block",
-  "second line" ],
-  "//": "single line comment",
   "//": "another single line comment"
 }

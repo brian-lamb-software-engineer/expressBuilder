@@ -19,27 +19,28 @@
  * @ todo unit test library vendor example
  * @ todo ssl http://www.hacksparrow.com/express-js-https.html
 
- error database
- --------------
+ erreoneous error database
+ --------------------------
 when starting server, client-js task, an error;
  throw
  ^
       (this error was related to a missing require, in this case was a typo)
  *
  * ENOENT
- *  DEBUG FUNCTION, UNCOMMENT WHEN YOU SEE ENOENT or other errors, to find the
- *  back trace. Put at top of executing script, e.g. index.js or gulpfile.js
- // (function() {
- //     var childProcess = require("child_process");
- //     var oldSpawn = childProcess.spawn;
- //     function mySpawn() {
- //         console.log('spawn called');
- //         console.log(arguments);
- //         var result = oldSpawn.apply(this, arguments);
- //         return result;
- //     }
- //     childProcess.spawn = mySpawn;
- // })();
+ // DEBUG FUNCTION, UNCOMMENT WHEN YOU SEE ENOENT or other errors, to find the
+ // backtrace(normally at the top of the output is the valuable portion).
+ //
+  // (function() {
+  //     var childProcess = require("child_process");
+  //     var oldSpawn = childProcess.spawn;
+  //     function mySpawn() {
+  //         console.log('spawn called');
+  //         console.log(arguments);
+  //         var result = oldSpawn.apply(this, arguments);
+  //         return result;
+  //     }
+  //     childProcess.spawn = mySpawn;
+  // })();
 */
 
 var express =     require('express');
