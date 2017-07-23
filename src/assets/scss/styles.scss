@@ -1,11 +1,21 @@
 /**
 * Global imports. Super important for initial styles to pull from
 */
-@import "../../../vendor/bootstrap/scss/bootstrap.scss";
-@import "../../../vendor/bootstrap/scss/bootstrap-sprockets.scss";
+// @import "../../../vendor/bootstrap/scss/bootstrap.scss";
+/**
+ * Bootstrap v4
+ * grid -xs<576,sm>576,md>768,lg=992,xl>1200
+ * max-container witdh:
+ *         none,  540,    720,   960,   1140
+ *       .col .col-sm .col-md .col-lg .col-xl (12 cols total) 15x15px gutter each
+*/
+@import "../../../vendor/bootstrap4/scss/bootstrap.scss";
+// @import "../../../vendor/bootstrap3/scss/bootstrap-sprockets.scss";
+
 @import "../../../vendor/font-awesome/scss/font-awesome.scss";
 @import "vars.scss";
 @import "mixins.scss";
+@import "bootstrap-overrides.scss";
 //
 /*==========  Mobile First Method  ==========*/
 /* XTRA SMALL, iPhone Retina (AND UP) */
@@ -13,18 +23,19 @@
 * All site styles here.  Override for larger later, develop in responsive
 * mobile view for something like iPhone6 portrait view, with LIVERELOAD on
 */
-@media only screen and (min-width : 320px) {
+// @media only screen and (min-width : 320px) {
   /**
   * CSS DEFAULT STYLES
   * Generic Typography, and html styles, that can  be overridden later below on
   * a specific case to case basis
   */
   a, a:link, a:visited {
+    // color: $font-color;
     color: $font-color;
     // text-decoration: none;
-  }
-  a:hover{
-    color: grey;
+    &:hover{
+      // color: grey;
+    }
   }
   p {
     // text-indent: 30px;
@@ -39,68 +50,93 @@
     color: $font-color;
     // background-color: $body-bg-color;
     background-image: $body-bg-image;
-    font: $font-size $font-family;
+    font: $body-font-size $font-family;
     margin:0;
-    letter-spacing: 0.2px;
+    letter-spacing: $body-letter-spacing;
     /**
     * HEADER STYLES
     */
     header {
-      nav.row{
-        // background-color: $primary-bg-color;
-        //background-color: yellow;
-        height: 110px;
-        div{ //or col-xs-12, or use wildcard col-* col-xs* etc.  (Forgot what wildcard is)
-            padding: 0;
+      nav.navbar{
+        height:auto;
+        margin-bottom: 40px; //margin for top of links, see up for top
+        .navbar-toggler{
+          margin-top: 45px; //margin above links, see row for top
+          background-color: $toggler-icon-bg;
+          border: 1px solid $brand-info;
+          .navbar-toggler-icon{
+            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(" + $toggler-icon-rgba + ")' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+          }
+        }
+        #navbarNavDropdown{
           ul{
-            margin-top: 60px;
-            margin-bottom: 0;
             li{
-              font-size: 16px;
-              font-weight: bold;
-              padding: 2px;
+              border: 1px solid $brand-info;
               a{
-                text-decoration: underline;
-                padding-bottom: 0;
+                display:block;
+                .btn-transparent{
+                  border:none;
+                  color: $brand-info-text; //color override needs !important if placed on bootstrap .btn-transparent, here is better
+                }
               }
             }
           }
         }
+        // ul.nav{
+        //   margin-top: 15px; //margin above links, see row for top
+        //   margin-bottom: 0;
+        //   li{
+        //     padding: 1px;
+        //     font-size: 16px;
+        //     font-weight: bold;
+        //     padding-bottom: 20px;
+        //     margin:0;  // pulls in ul, to fit
+        //     // display: inline-block; //set because if too wide,
+        //     // float: right; //need float for this size, since its set to display inline-block
+        //     a{
+        //       padding: 0;
+        //       .btn-transparent{
+        //         color: $brand-info-text; //color override needs !important if placed on bootstrap .btn-transparent, here is better
+        //       }
+        //     }
+        //   }
+        // }
       }
-      .banner.row{
-        // background-color: $brand-blue;
+      div.banner{
         height:170px;
         background-image: $splash-image;
-        // overflow: hidden;
-        padding:0;
+        position: relative;
         span.logo{
-          height: 150px;
-          width: 250px;
+          position: absolute;
+          z-index: 50;
+          left:0;
+          top:2%;
+          width: 260px; //important instead of auto, page too wide off right margin
+          height: 96%;
+          margin-left: 1%;
           background-image: $banner-logo;
-          //background-size: contain;
-          background-size: 240px;
+          background-size: contain;
           background-repeat: no-repeat;
-          margin: 3px 0 3px 3px;
         }
         span.title{
+          position: absolute;
+          z-index: 100;
+          right:10px;
+          top:25px;
           height: 50px;
-          display: inline-block;
-          width: 100px;
-          margin-left: -130px;
-          margin-top: 120px;
-          font-size: 36px;
+          font-size: 48px;
         }
       }
       .controlBar.row{
         height:50px;
-        ul {
-          li {
-            a{
-              padding: 5px 0;
-            }
-          }
+        ul li a{
+          padding: 5px 0;
+          font-size: 16px;
+          font-color: white;
+          z-index: 250;
+          height: 100%;
+          width: 100%;
         }
-        // background-color: $primary-bg-color;
       }
     }
     /**
@@ -108,34 +144,88 @@
     */
     main{
       padding-bottom: 35px;
-      .header{
+      .heading{
           margin-bottom: 15px;
           margin-top: -32px;
           span{
             margin-right: 8px;
           }
       }
-      .panel{
-        p{
-          text-indent: 3px;
+      .add{
+        .fa{
+          padding-left: 10px;
+          color: green;
         }
-        button.fa-trash-o{
-           background: #fff;
-           border:none;
-        }
-        .panel-body{
-          padding: 5px 10px;
-          border: none;
-          ul{
-            padding: 0px;
-            li{
-              padding: 0px;
-              span{
-                padding-left: 5px;
-              }
+      }
+      .card{
+        color: black;
+        margin-bottom: 5px;
+        font-size: 16px;
+        .row.alternating{
+          border-top: 1px solid lightgray;
+          a.title{
+            color: black;
+          }
+          a.btn{
+            margin-right: 3px;
+          }
+          form{
+            display: inline;
+            button{
+              font-family: $font-family;
+              padding: 5px;
             }
           }
         }
+        .row.alternating:nth-of-type(odd) {
+            background-color: azure;
+        }
+
+        // .fa-trash-o{
+        //    background: #fff;
+        //    color:red;
+        //    border:none;
+        // }
+        // .fa-edit{
+        //   color:blue;
+        // }
+        // .card-header{
+        //   margin: 0;
+        //   padding: 0;
+        //   a{
+        //     padding: 5px 12px 4px 5px;
+        //   }
+        // }
+        // .card-block{
+        //   padding: 10px 10px;
+        //   font-family: sans-serif;
+        //   // border: none;
+        //   .card-title{
+        //     color: grey;
+        //     a{
+        //       color:steelblue;
+        //       text-decoration: none;
+        //     }
+        //   }
+        //   .card-text{
+        //     li.fa{
+        //       color:gainsboro;
+        //       span{
+        //         color:black;
+        //         padding-left: 5px;
+        //       }
+        //     }
+        //   }
+        //   ul{
+        //     // padding: 0px;
+        //     li{
+        //       // padding: 0px;
+        //       span{
+        //         // padding-left: 5px;
+        //       }
+        //     }
+        //   }
+        // }
         form {
           padding:0;
           margin: 0;
@@ -161,7 +251,7 @@
       }
     }
   }
-}
+// }
 //
 //IMPORTING LARGER DEVICES HERE
 @import "media-overrides.scss";

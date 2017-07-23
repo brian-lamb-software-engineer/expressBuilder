@@ -1,0 +1,12 @@
+/**
+* Bootstrap overrides.
+* Put your custom bootstrap adjustments here
+*/
+.btn-info {
+  &.btn-transparent {
+    @include button-variant($btn-info-bg, transparent, $btn-info-bg);
+    &:hover {
+      @include button-variant($btn-info-bg, darken($btn-info-bg, 25%), $btn-info-bg);
+    }
+  }
+}

@@ -2,36 +2,48 @@ extends ../layout
 
 block content
   div.row
-    div.col-md-2
-    div.col-md-8
-      div.header
-        span.h2 #{title}
-        span
-          a(href='/movies/new')
-            i.fa.fa-plus-circle
-      each movie, i in movies
-        div.panel.panel-default
-          span.pull-right
-            form(action='/movies/#{movie._id}/edit', method='post',
-              enctype='application/x-www-form-urlencoded')
-              a.btn.btn-default
-                button.fa.fa-trash-o(type='submit')
-              input(type='hidden',value='DELETE',name='_method')
-          span.pull-right
-            a.btn.btn-default(href='/movies/#{movie._id}/edit')
-              i.fa.fa-edit.fa-align-right
-          div.panel-heading
-            panel-title.h4
-              a(href='/movies/#{movie._id}') #{movie.name}
-              if movie.year
-                i.h6 #{movie.year}
-          div.panel-body
-            if movie.starring
-              ul
-                li.fa.fa-user-times
-                  span.h6 #{movie.starring}
-            if movie.notes
-              ul
-                li.fa.fa-info
-                  span #{movie.notes}
-    div.col-md-2
+    div.col-1.col-md-3.col-xl-2
+
+    div.col-10.col-md-8.col-xl-7
+      div.card
+        div.card-header
+          span.h1 #{title}
+          span.add
+        div.card-block
+          a(href='/movies/new').btn.btn-success
+            i.fa.fa-plus-circle  Add New Movie
+        div.card-block
+          each movie, i in movies
+            div.row.alternating.no-gutters
+              div.col-4
+                div.card-block
+                  a.title(href='/movies/#{movie._id}')
+                    h6.card-title #{movie.name}
+                    if movie.year
+                      i.card-text.float-right  (#{movie.year})
+              div.col-4
+                div.card-block
+                  if movie.starring
+                    span.fa.fa-user-times #{movie.starring}
+                  if movie.notes
+                    i.fa.fa-info #{movie.notes}
+              div.col-4
+                div.card-block
+                  a(href='/movies/edit').btn.btn-warning.btn-sm Edit
+                  a(href='/movies/show').btn.btn-primary.btn-sm Details
+                  span
+                    form(action='/movies/#{movie._id}/edit', method='post',
+                      enctype='application/x-www-form-urlencoded')
+                      button.btn.btn-danger.btn-sm(type='submit') Delete
+                      input(type='hidden',value='DELETE',name='_method')
+    div.col-1.col-md-1
+
+    //-
+      form(action='/movies/#{movie._id}/edit', method='post',
+        enctype='application/x-www-form-urlencoded')
+        a.btn.btn-default
+          button.fa.fa-trash-o(type='submit')
+  //-
+    span.float-right
+      a.btn.btn-default(href='/movies/#{movie._id}/edit')
+        i.fa.fa-edit.fa-align-right

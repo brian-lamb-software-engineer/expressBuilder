@@ -1,61 +1,16 @@
-doctype html
+//
+  doctype html
 html(lang=en)
+
   head
-    title='MMDB - Movie Database'
+    title='ExpressBuilder'
     link(rel='stylesheet', href='/css/styles.css')
     script(src='/js/head.js')
     meta(name='viewport' content='width=device-width, initial-scale=1')
-  body
-    header.container-fluid
-      nav.row
-          div.col-md-2.col-xs-0
-          div.col-md-8.col-xs-12
-            ul.nav.nav-pills.pull-right
-              li
-                a(href='/') Home
-              li
-                a(href='/movies') Movies
-              li
-                a(href='/blobs') Blobs
 
-              li
-                a(href='/students') Students
-          div.col-md-2.col-xs-0
-      div.row.banner
-        span.logo.pull-left
-          test
-        span.title expressBuilder
-        div.col-md-2.col-xs-0
-        div.col-md-8.col-xs-12
-        div.col-md-2.col-xs-0
-      div.row.controlBar
-        div.col-md-3
-        div.col-md-6.col-xs-12
-          ul.nav.nav-pills.pull-right
-            li
-              a
-                script.
-                  document.write(appModule.getDate());
-        div.col-md-3
-    main.container-fluid
+  body
+    include header
+    main
         block content
-    footer.container-fluid
-      div.row
-        div.col-md-2.col-xs-1
-        div.col-md-8.col-xs-10
-          span
-            ul.nav
-              li
-                a(href='https://github.com/brian-lamb-software-engineer') brian-lamb-software-engineer
-          span
-            ul.nav
-              li
-                a(href='/') Home
-              li
-                a(href='/blobs') Blobs
-              li
-                a(href='/movies') Movies
-              li
-                a(href='/students') Students
-        div.col-md-2.col-xs-1
+    include footer
     script(src='/js/foot.js')

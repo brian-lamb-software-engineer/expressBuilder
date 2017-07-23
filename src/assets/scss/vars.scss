@@ -1,12 +1,11 @@
 /**
 * vars
 */
-
 //BODY
-$body-bg-color:     grey;
-$primary-bg-color:  white;
-$body-bg-image:     url("/images/canvas-only-background.jpg");
-
+$body-bg-color:         grey;
+$primary-bg-color:      white;
+$body-bg-image:         url("/images/canvas-only-background.jpg");
+$body-letter-spacing:   0.2px;
 //TOP IMAGES @TODO
 // $head-bg-img-lg:    ../images/file.jpg;
 // $head-bg-img-sm:    ../images/file.jpg;
@@ -14,15 +13,25 @@ $body-bg-image:     url("/images/canvas-only-background.jpg");
 // $banner-bg-img-sm:  ../images/file.jpg;
 // $main-bg-img-lg:    ../images/file.jpg;
 // $main-bg-img-sm:    ../images/file.jpg;
-$splash-image:      url("/images/aqua-splash-250px.jpg");
-$banner-logo:       url("/images/accipiter-logo-transparent.png");
+$splash-image:        url("/images/aqua-splash-250px.jpg");
+$banner-logo:         url("/images/accipiter-logo-transparent.png");
 
-//FONT
-$font-size:         14px;
+//FONT - TYPOGRAPHY
+$body-font-size:       14px;
 // $font-color:         #333;
-$font-color:         white;
-//$font-family:       "Lucida Grande", Helvetica, Arial, sans-serif;
-$font-family:       "Open Sans";
+$font-color:          white;
+//$font-family:         "Lucida Grande", Helvetica, Arial, sans-serif;
+$font-family:         "Open Sans";
 
 //BRAND
-$brand-blue:        #367EB8;
+$brand-blue:          #367EB8;
+
+
+//Botstrap adjustments
+$brand-info:          #339999;
+$toggler-icon-bg:     transparent;
+$toggler-icon-rgba:   54, 126, 184,0.9;
+$brand-info-text:     #fff;
+$btn-info-color:      #fff;
+$btn-info-bg:         $brand-info;
+$btn-info-border:     darken($btn-info-bg, 5%);

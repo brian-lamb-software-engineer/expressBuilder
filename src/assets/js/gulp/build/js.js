@@ -69,7 +69,8 @@ gulp.task('client-js', ['coffee-js'], function(){
   var srcHeadJs = gulp.src([
       config.paths.services + 'browserDetect.js',
       config.paths.vendor + 'jquery/jquery-custom.js',
-      config.paths.vendor + 'bootstrap/bootstrap.custom.js',
+      // config.paths.vendor + 'bootstrap3/bootstrap.custom.js',
+      config.paths.vendor + 'bootstrap4/bootstrap.min.js',
       config.paths.assets + 'js/appModule.cfe.js'
     ])
     .pipe(jshint())
@@ -129,6 +130,7 @@ gulp.task('client-js', ['coffee-js'], function(){
       config.paths.pub + 'js/'
     ));
   // run
+  // @ TODO, check why if pubJsFoot has merge command above, that its included below in teh merge again
   return merge(jsServices, jsControllers, jsModels, srcHeadJs, vendorHeadJs, srcFootJs,
       vendorFootJs, pubJsHead, pubJsFoot);
 });

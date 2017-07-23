@@ -1,0 +1,31 @@
+header
+  nav.navbar.navbar-toggleable-sm.transparent.justify-content-end
+    button.navbar-toggler.navbar-toggler-right(type="button",data-toggle="collapse",data-target="#navbarNavDropdown",aria-controls="navbarNavDropdown",aria-expanded="false",aria-label="Toggle navigation")
+      span.navbar-toggler-icon
+    #navbarNavDropdown.navbar-collapse.collapse
+        ul.navbar-nav.mr-auto.justify-content-end
+          li.nav-item
+            a(href='/')
+              button.btn.btn-info.btn-transparent(type="button") Home
+          li.nav-item
+            a(href='/movies')
+              button.btn.btn-info.btn-transparent(type="button") Movies
+          li.nav-item
+            a(href='/blobs')
+              button.btn.btn-info.btn-transparent(type="button") Blobs
+          li.nav-item
+            a(href='/students')
+              button.btn.btn-info.btn-transparent(type="button") Students
+  div.row.banner.no-gutters
+    div.col
+      span.logo
+      span.title expressBuilder
+  div.row.controlBar.no-gutters
+    div.col-sm-3.hidden-xs-down
+    div.col-sm-6.col-xs-12
+      ul.nav.nav-pills.float-right
+        li
+          a
+            script.
+              document.write(appModule.getDate());
+    div.col-sm-3.hidden-xs-down

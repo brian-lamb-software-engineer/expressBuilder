@@ -8,7 +8,7 @@
   config = require('../../../../../config.json');
 
 /**
- * Task vendor-bootstrap
+ * Task vendor-bootstrap for bootstrap-sass (npm)
  * THis vendor copy takes things to the next level.  Since there is multiple file
  * types being worked with here, there is an entry for each type, and each has
  * its own separate copy execution, one of which does some further processing
@@ -17,23 +17,38 @@
  */
 gulp.task('vendor-bootstrap', function(){
 
-  //bs js
-  var bootstrapJs = gulp.src([
-    './node_modules/bootstrap-sass/assets/javascripts/bootstrap-sprockets.js',
-    './node_modules/bootstrap-sass/assets/javascripts/bootstrap.js'
-    ])
-    .pipe(concat('bootstrap.custom.js'))
-    .pipe(gulp.dest(config.paths.vendor + 'bootstrap'));
+  // //bs3 js
+  // var bootstrap3Js = gulp.src([
+  //   // './node_modules/bootstrap-sass/assets/javascripts/bootstrap-sprockets.js'
+  //   // './node_modules/bootstrap-sass/assets/javascripts/bootstrap.js'
+  //   './node_modules/bootstrap-sass/assets/javascripts/bootstrap.min.js'
+  //   ])
+  //   .pipe(concat('bootstrap.custom.js'))
+  //   .pipe(gulp.dest(config.paths.vendor + 'bootstrap3'));
 
-  // bs sass do this a different way, we need all, so at complie time we have all our includes
-  var bootstrapCss = gulp.src(['./node_modules/bootstrap-sass/assets/stylesheets/**/*'])
-    .pipe(gulp.dest(config.paths.vendor + 'bootstrap/scss/'));
+  // bs3 sass do this a different way, we need all, so at complie time we have all our includes
+  // var bootstrap3Css = gulp.src(['./node_modules/bootstrap-sass/assets/stylesheets/**/*'])
+  //   .pipe(gulp.dest(config.paths.vendor + 'bootstrap3/scss/'));
 
-  // bs fonts
-  var vendorCopyBsFonts = gulp.src('./node_modules/bootstrap-sass/assets/fonts/bootstrap/glyph*.*')
-    .pipe(gulp.dest(config.paths.vendor + 'bootstrap/fonts/'));
+  // bs3 fonts
+  var vendorCopyBs3Fonts = gulp.src('./node_modules/bootstrap-sass/assets/fonts/bootstrap/glyph*.*')
+    .pipe(gulp.dest(config.paths.vendor + 'bootstrap3/fonts/'));
 
   // var bootstrapImages = gulp.src(['./node_modules/bootstrap-sass/assets/images'])
     // .pipe(gulp.dest(config.paths.vendor + 'bootstrap/images/'));
-  return merge(bootstrapJs, bootstrapCss, vendorCopyBsFonts);
+  //return merge(bootstrap3Js, bootstrap3Css, vendorCopyBs3Fonts);
+
+  //bs4 js
+  // var bootstrap4Js = gulp.src(['./node_modules/bootstrap/js/dist/**/*'])
+  var bootstrap4Js = gulp.src(['./node_modules/bootstrap/dist/js/bootstrap.min.js'])
+    .pipe(concat('bootstrap.min.js'))
+    .pipe(gulp.dest(config.paths.vendor + 'bootstrap4'));
+
+  // bs4 sass do this a different way, we need all, so at complie time we have all our includes
+  var bootstrap4Css = gulp.src(['./node_modules/bootstrap/scss/**/*'])
+    .pipe(gulp.dest(config.paths.vendor + 'bootstrap4/scss/'));
+
+  // var4 bootstrapImages = gulp.src(['./node_modules/bootstrap-sass/assets/images'])
+    // .pipe(gulp.dest(config.paths.vendor + 'bootstrap/images/'));
+  //return merge(bootstrap4Js, bootstrap4Css, vendorCopyBs3Fonts);
 });

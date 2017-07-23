@@ -35,7 +35,7 @@ node_modules/
 vendor/dummy.js
 
 # these files are dynamically created, therefore don't need to be part of the repo.
-vendor/bootstrap
+vendor/bootstrap*
 
 # Ignore the build dir, that would be nothing but dead weight, no source in there!
 www/

@@ -6,13 +6,20 @@
 //
 /* Custom, iPhone Retina */
 //@media only screen and (min-width : 320px) {}
-/* SMALL Devices, Phones */
-@media only screen and (min-width : 480px) {
+//
+/* MEDIUM Devices, Phones (above 544px)*/
+@media only screen and (min-width : 34em) {
   body {
     /**
     * HEADER STYLES
     */
     header {
+      div.banner{
+        span.title{
+          top: 0;
+          font-size: 68px;
+        }
+      }
     }
     /**
     * MAIN CONTENT COL STYLES
@@ -27,67 +34,89 @@
   }
 }
 //
-/* MEDIUM Devices, Tablets */
-@media only screen and (min-width : 768px) {
+/* MEDIUM Devices, Tablets (ipad portrait)(above 768)*/
+@media only screen and (min-width : 48em) {
   body {
     /**
     * HEADER STYLES
     */
     header {
-    }
-    /**
-    * MAIN CONTENT COL STYLES
-    */
-    main{
-    }
-    /**
-    * FOOTER STYLES
-    */
-    footer{
-    }
-  }
-}
-//
-/* LARGE Devices, Desktops
-Since this is mobile first, the styles get made for small devices, and
-overridden here */
-@media only screen and (min-width : 992px) {
-  body {
-    /**
-    * HEADER STYLES
-    */
-    header {
-      nav.row{
-        div{
-          padding: inherit;
+      nav.navbar{
+        margin-top: 10px;
+        margin-bottom: 25px;
+        #navbarNavDropdown{
+          width:inherit; //keeps floated right, why is this
           ul{
-            margin-right: 50px;
             li{
-              font-size: 18px;
-              padding-right: 5px;
+              border: none;
+              display: inline-block;
+              padding-left: 15px;
+              a{
+                display:inherit;
+                .btn-transparent{
+                  font-size: 18px;
+                  border: 1px solid $brand-info; //border here for auto rounded edges, or put it on the li
+                  color: $brand-info-text; //color override needs !important if placed on bootstrap .btn-transparent, here is better
+                }
+              }
             }
           }
         }
-
       }
-      .banner.row{
-        height:250px;
-        span{
-          height: 230px;
-          margin: 10px
+      div.banner{
+        span.title{
+          left: 230px;
+          top: -12px;
+          bottom: 0px;
+          font-size: 86px;
         }
+      }
+    }
+    /**
+    * MAIN CONTENT COL STYLES
+    */
+    main{
+    }
+    /**
+    * FOOTER STYLES
+    */
+    footer{
+    }
+  }
+}
+//
+/* LARGE Devices, Desktops (above 992)
+Since this is mobile first, the styles get made for small devices, and
+overridden here */
+@media only screen and (min-width : 62em) {
+  body {
+    /**
+    * HEADER STYLES
+    */
+    header {
+      nav.navbar{
+        #navbarNavDropdown{
+          ul{
+            li {
+              a {
+                .btn-transparent{
+
+                }
+              }
+            }
+          }
+        }
+      }
+      div.banner{
+        height:235px;
         span.logo{
           height: 230px;
           width: 350px;
           background-size: 350px;
         }
         span.title{
-          width: 200px;
-        }
-      }
-      .controlBar.row{
-        ul li a{
-          padding: 15px;
+          left: 290px;
+          font-size: 110px;
         }
       }
     }
@@ -101,7 +130,6 @@ overridden here */
     * FOOTER STYLES
     */
     footer{
-      // height:200px;
       padding-top: 25px;
       span{
         display: inline-block;
@@ -120,13 +148,39 @@ overridden here */
   }
 }
 //
-/* XTRA LARGE Devices, Wide Screens */
-@media only screen and (min-width : 1200px) {
+/* XTRA LARGE Devices, Wide Screens (above 1200px) */
+@media only screen and (min-width : 75em) {
   body {
     /**
     * HEADER STYLES
     */
     header {
+      nav.navbar{
+        #navbarNavDropdown{
+          ul{
+            li {
+              a {
+                .btn-transparent{
+                  font-size: 24px;
+                }
+              }
+            }
+          }
+        }
+      }
+      div.banner{
+        span.logo{
+          margin-top: 3px;
+          top:0;
+          margin-left: 3px;
+          height: 98%;
+        }
+        span.title{
+          top: -16px;
+          left: 325px;
+          font-size: 136px;
+        }
+      }
     }
     /**
     * MAIN CONTENT COL STYLES
