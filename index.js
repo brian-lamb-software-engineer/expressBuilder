@@ -46,8 +46,8 @@ when starting server, client-js task, an error;
 var express =     require('express');
 var path =        require('path');
 var favicon =     require('serve-favicon');
-var logger =      require('morgan');
-var cookieParser = require('cookie-parser');
+var logger =      {};
+//var cookieParser = require('cookie-parser');
 var bodyParser =  require('body-parser');
 var compression = require('compression');
 var sass =        require('node-sass');
@@ -60,18 +60,30 @@ var app =         express();
 var movies =      require('./www/js/movieController');
 var blobs =       require('./www/js/blobController');
 var students =    require('./www/js/studentController');
-//leave after MODELS, or will get error Schema hasn't been registered for model
+
+//Home page.  leave after MODELS, or will get error Schema hasn't been registered for model
 var routes =      require('./www/js/indexController');
 
 app.set('views', path.join(__dirname, 'www/views'));
 app.set('view engine', 'jade');
-app.use(logger('dev'));
+
+if (app.get('env') === 'development') {
+  //enables logger during development
+  logger =      require('morgan');
+  app.use(logger('dev'));
+}
+
+//uncomment when cookies are needed
+//app.use(cookieParser());
+//
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.use(compression());
-app.use(bootstrap.serve);
-bootstrap.init({ minified: false });
+
+//uncomment when express-bootstrap-service is needed
+// app.use(bootstrap.serve);
+// bootstrap.init({ minified: false });
+
 app.use(require('connect-livereload')({
     port: 35729,
     src: 'http://192.168.1.10:35729/livereload.js?snipver=1'
@@ -114,6 +126,7 @@ app.use("/fonts", express.static(__dirname + '/fonts')); //assets
 // uncomment following after placing your favicon in /www
 //app.use(favicon(path.join(__dirname, 'www', 'favicon.ico')));
 
+
 /**
  * Error handlers
  */
@@ -123,7 +136,8 @@ app.use(function(req, res, next) { // catch 404 and forward to error handler
   next(err);
 });
 
-if (app.get('env') === 'development') { // development error handler, will print stacktrace
+if (app.get('env') === 'development') {
+  // development error handler, will print stacktrace
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.render('error', {

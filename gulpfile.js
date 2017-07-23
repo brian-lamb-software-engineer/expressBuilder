@@ -77,7 +77,11 @@
  *
  * $ npm start
  *                  -Starts the server with current version of build without
+<<<<<<< Updated upstream
  *                  runningi any gulp tasks, therefore bypasses building, the
+=======
+ *                  running any gulp tasks, therefore bypasses building, the
+>>>>>>> Stashed changes
  *                  livereload server, and watch altogether, then starts a
  *                  normal node http server. (Can run this anytime after build
  *                  complete, but it unecessary)
@@ -109,9 +113,15 @@
  //     childProcess.spawn = mySpawn;
  // })();
 
+<<<<<<< Updated upstream
  var gulp = require('gulp');
  gulp.appport = '3003'; // @todo get dynamic
  gulp.pathconfig = require('./config.json');
+=======
+ var gulp       = require('gulp'),
+    gutil       = require('gulp-util'),
+    runSequence = require('run-sequence');
+>>>>>>> Stashed changes
 
  const gulpRequireTasks = require('gulp-require-tasks');
  gulpRequireTasks({

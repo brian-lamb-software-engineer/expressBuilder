@@ -1,6 +1,12 @@
 /**
  * Task js stuff
- * output user message
+ * tasks on this file will normally just need to re-run build & develop tasks,
+ * and not need a vendor recompile.
+ *
+ * To add vendors from /node_modules, first npm-install something, then create
+ *  a new gulp/vendor task file to get the files into the /vendor dir, add that
+ *  task to gulp/vendor/compile.js, then add the compiled file to one of the
+ *  methods below to apply it.  e.g. to srcHeadJs if a js file
  */
  var gulp =  require('gulp'),
   config = require('../../../../../config.json'),
@@ -68,10 +74,17 @@ gulp.task('client-js', ['coffee-js'], function(){
   // head js, inject your scripts here
   var srcHeadJs = gulp.src([
       config.paths.services + 'browserDetect.js',
+<<<<<<< Updated upstream
       config.paths.vendor + 'jquery/jquery-custom.js',
       // config.paths.vendor + 'bootstrap3/bootstrap.custom.js',
       config.paths.vendor + 'bootstrap4/bootstrap.min.js',
       config.paths.assets + 'js/appModule.cfe.js'
+=======
+      config.paths.vendor   + 'jquery/jquery-custom.js',
+      config.paths.vendor   + 'tether/tether.min.js',
+      config.paths.vendor   + 'bootstrap/bootstrap.custom.js',
+      config.paths.assets   + 'js/appModule.cfe.js'
+>>>>>>> Stashed changes
     ])
     .pipe(jshint())
     .pipe(concat('~srcHead.js'))
