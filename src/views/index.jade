@@ -7,21 +7,11 @@ block content
       //-h1= title
       //-h3 Welcome to #{title}
       h2 A complete development toolkit using Gulp
-
       p ExpressBuilder is meant to be one step decoupled, with some imperative tasks tailored towards enterprise level web specific development, and is entirely scalable! Its greatest use case is for a ground-level engineering scaffold for a new product application, to help fast-track as a full-suite.  Just clone and go.
-
       p Introducing the first NEMM stack.  This stack consists of a pure JavaScript server-side Node back-end, the Node Express.js Framework, and uses Gulp.
-
       p Gulp is a task manager for expressBuilder, and provides any automation that you build into it, uses JavaScript syntax that Node developers are already familiar with, and enforces nothing.  You can add any various tasks such as building your application, linting it, even the running a very special feature called livereload.
-
       p Livereload is one of the most important tasks since it allows you to dynamically preview as soon as you save your templates, or CSS adjustments.  Nodemon (node monitor) is also included in the stack, which ties into livereload so that it will also work on all your required JS, and server files.
-
-      p Almost all the components can be swapped out, which aren't tied to the application.  Instead they serve as examples, a CRUD specifically.  The only hard tied components are Express, and Gulp.  The primary examples are for Jade/Pug templating, the most popular NoSQL database MongoDB, and a superb schema-based ODM called Mongoose. This is what makes it a NEMM stack.  It's not hard tied to MongoDB, and Mongoose.  These are not deeply embedded and can be changed out by installing other Node modules such as from NPM.
-
-
-
-      p Measures have been taken to avoid having to use Bower, Grunt, and the like in order to keep things slim.  For example, at the time of this writing, the bootstrap-sass docs don't yet have documented a way to implement this straight into gulp, and others who have, used Bower. This would be pointless to add bower simply to get NPM modules into a directory.  The vendor specific tasks on the gulpfile will guide you on how to accomplish this.
-
-
-      p During version control, don't commit anything until you can successfully run the "gulp develop" command, without seeing any lint errors, etc.., Then you would want to stop the server and commit your changes, then restart.
+      p Almost all the components can be swapped out, which aren't tied to the application.  Instead they serve as examples, a CRUD specifically.  The only hard tied components are Express, and Gulp.  The primary examples are for Jade/Pug templating, the most popular NoSQL database MongoDB, and a superb schema-based ODM called Mongoose. This is what makes it a NEMM stack.  The added packages are not deeply embedded and can be changed out by installing other Node modules such as from NPM.
+      p Measures have been taken to avoid having to use Bower, Grunt, and the like in order to keep things slim.  For example, at the time of this writing, the bootstrap-sass docs didn't yet have a documented way to implement this straight into gulp, just Bower. This would be pointless to add Bower simply to get NPM modules into a directory.  The vendor specific tasks on the gulpfile will guide you on how to accomplish this.
+      p During version control, don't commit anything until you can successfully run the "gulp develop" command, without seeing any lint errors, etc.., Then you might want to stop the server, commit your updates, then restart.
     div.col-md-2.col-xs-1
