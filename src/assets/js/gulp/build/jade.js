@@ -2,11 +2,11 @@
  * Task jade stuff
  * output user message
  */
- var gulp =  require('gulp'),
- jade =          require('gulp-jade'),
- jadelint =      require('gulp-jadelint'),
-  config = require('../../../../../config.json');
-  
+var gulp =      require('gulp');
+var jade =      require('gulp-jade');
+var jadelint =  require('gulp-jadelint');
+var config =    require('../../../../../config.json');
+
 /**
  * Task lintcopy-jade
  */

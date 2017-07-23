@@ -109,9 +109,9 @@
  //     childProcess.spawn = mySpawn;
  // })();
 
- var gulp = require('gulp'),
-   gutil =         require('gulp-util'),
-    runSequence =   require('run-sequence');
+ var gulp = require('gulp');
+ gulp.appport = '3003'; // @todo get dynamic
+ gulp.pathconfig = require('./config.json');
 
  const gulpRequireTasks = require('gulp-require-tasks');
  gulpRequireTasks({

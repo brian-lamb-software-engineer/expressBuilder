@@ -2,15 +2,18 @@
  * Task server stuff, gls, watch, etc
  * output user message
  */
- var gulp =  require('gulp'),
-    config = require('../../../../../config.json'),
-    jshint =        require('gulp-jshint'),
-    gls =           require('gulp-live-server'),
-    gutil =         require('gulp-util'),
-    watch = require('gulp-watch'),
-    runSequence =  require('run-sequence'),
-    //server = [],
-    file=null;
+ // var server = [];
+ var gulp =       require('gulp');
+ // var config =     require('../../../../../config.json'); //deprecating in favor of below
+ var config =     gulp.pathconfig;
+ var jshint =     require('gulp-jshint');
+ var gls =        require('gulp-live-server');
+ var gutil =      require('gulp-util');
+ var watch =      require('gulp-watch');
+ var runSequence =  require('run-sequence');
+ var file =        null;
+ var os =          require("os");
+ var hostname =  os.hostname();
 
 /**
  * Task server-js
@@ -36,11 +39,14 @@ gulp.task('gls', function(){
    var server = gls.new('bin/www');
    server.start('nodemon');
    gutil.log('gls and nodemon source watch started,');
-   
+
    gutil.log('setting a watch on the pub files');
    setTimeout(function () {
-    gutil.log('LIVE RELOAD LOADED (timeout expired)');
-    gutil.log('live reload actively watching for changes on the pub side.');
+    gutil.log('Livereload loaded');
+    gutil.log('Make sure the following browser domain name is in your hosts file');
+    gutil.log('or use the hosts ip instead!');
+    gutil.log('...');
+    gutil.log('Point your browser to http://' + hostname + ':' + gulp.appport);
     gutil.log('Bang away!');
 
     /**
