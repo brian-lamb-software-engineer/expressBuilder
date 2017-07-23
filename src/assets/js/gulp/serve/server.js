@@ -4,8 +4,6 @@
  */
  // var server = [];
  var gulp =       require('gulp');
- // var config =     require('../../../../../config.json'); //deprecating in favor of below
- var config =     gulp.pathconfig;
  var jshint =     require('gulp-jshint');
  var gls =        require('gulp-live-server');
  var gutil =      require('gulp-util');
@@ -19,7 +17,7 @@
  * Task server-js
  */
 gulp.task('server-js', function(){
-  return gulp.src(config.paths.packageroot)
+  return gulp.src(gulp.config.paths.packageroot)
     .pipe(jshint())
     .pipe(jshint.reporter('jshint-stylish'));
 });
@@ -57,7 +55,7 @@ gulp.task('gls', function(){
      **/
 
      //watch built css, trigger live reload
-    gulp.watch([config.paths.pub + 'css/**/*.css'], function(file){
+    gulp.watch([gulp.config.paths.pub + 'css/**/*.css'], function(file){
 
         gutil.log('pub side - triggering server notify apply file ');
 
@@ -68,8 +66,8 @@ gulp.task('gls', function(){
 
     //watch built js, and views, trigger live reload
     gulp.watch([
-        config.paths.pub + 'js/**/*.js',
-        config.paths.pub + 'views/**/*.jade'
+        gulp.config.paths.pub + 'js/**/*.js',
+        gulp.config.paths.pub + 'views/**/*.jade'
       ],
       function(file){
         gutil.log('pub side - triggering livereload');

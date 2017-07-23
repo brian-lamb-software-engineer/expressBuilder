@@ -1,5 +1,6 @@
 {
   "_comment": "    pub = the build dir    all css (recreated on build)    all fonts (recreated on build)    all js (recreated on build)    all views (recreated on build)    the v_ersion tag (recreated on build)    having paths makes the entire tasking easier to program out",
+  "appport": 3003,
   "paths" : {
     "src":        "src/",
     "pub":        "www/",

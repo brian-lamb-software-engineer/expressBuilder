@@ -3,10 +3,9 @@
  * adds a version tag, in the form of a file, on each build
  * you can reference this file by looking in the www dir.
  */
- var gulp =  require('gulp'),
-  merge =         require('merge-stream'),
-  file = require('gulp-file'),
-  config = require('../../../../../config.json');
+var gulp =  require('gulp');
+var merge = require('merge-stream');
+var file =  require('gulp-file');
 
 /**
  * Task add-version-tag
@@ -25,6 +24,6 @@ gulp.task('add-version-tag', function(cb){
     nameStrIs = dateIs.getUTCMonth() + 1 + '_' + dateIs.getUTCDate() + '_' +
     dateIs.getUTCHours() + '_' + dateIs.getMinutes();
   file('v_' + nameStrIs, responseTxt) //make a new version tag, for the tag gun
-      .pipe(gulp.dest(config.paths.pub)); //apply the sticker..
+      .pipe(gulp.dest(gulp.config.paths.pub)); //apply the sticker..
   return cb();
 });

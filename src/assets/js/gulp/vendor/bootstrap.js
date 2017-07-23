@@ -2,10 +2,9 @@
  * Task vendor item
  * output user message
  */
- var gulp =  require('gulp'),
-  concat =        require('gulp-concat'),
-  merge =         require('merge-stream'),
-  config = require('../../../../../config.json');
+var gulp =    require('gulp');
+var concat =  require('gulp-concat');
+var merge =   require('merge-stream');
 
 /**
  * Task vendor-bootstrap for bootstrap-sass (npm)
@@ -24,31 +23,31 @@ gulp.task('vendor-bootstrap', function(){
   //   './node_modules/bootstrap-sass/assets/javascripts/bootstrap.min.js'
   //   ])
   //   .pipe(concat('bootstrap.custom.js'))
-  //   .pipe(gulp.dest(config.paths.vendor + 'bootstrap3'));
+  //   .pipe(gulp.dest(gulp.config.paths.vendor + 'bootstrap3'));
 
   // bs3 sass do this a different way, we need all, so at complie time we have all our includes
   // var bootstrap3Css = gulp.src(['./node_modules/bootstrap-sass/assets/stylesheets/**/*'])
-  //   .pipe(gulp.dest(config.paths.vendor + 'bootstrap3/scss/'));
+  //   .pipe(gulp.dest(gulp.config.paths.vendor + 'bootstrap3/scss/'));
 
   // bs3 fonts
   var vendorCopyBs3Fonts = gulp.src('./node_modules/bootstrap-sass/assets/fonts/bootstrap/glyph*.*')
-    .pipe(gulp.dest(config.paths.vendor + 'bootstrap3/fonts/'));
+    .pipe(gulp.dest(gulp.config.paths.vendor + 'bootstrap3/fonts/'));
 
   // var bootstrapImages = gulp.src(['./node_modules/bootstrap-sass/assets/images'])
-    // .pipe(gulp.dest(config.paths.vendor + 'bootstrap/images/'));
+    // .pipe(gulp.dest(gulp.config.paths.vendor + 'bootstrap/images/'));
   //return merge(bootstrap3Js, bootstrap3Css, vendorCopyBs3Fonts);
 
   //bs4 js
   // var bootstrap4Js = gulp.src(['./node_modules/bootstrap/js/dist/**/*'])
   var bootstrap4Js = gulp.src(['./node_modules/bootstrap/dist/js/bootstrap.min.js'])
     .pipe(concat('bootstrap.min.js'))
-    .pipe(gulp.dest(config.paths.vendor + 'bootstrap4'));
+    .pipe(gulp.dest(gulp.config.paths.vendor + 'bootstrap4'));
 
   // bs4 sass do this a different way, we need all, so at complie time we have all our includes
   var bootstrap4Css = gulp.src(['./node_modules/bootstrap/scss/**/*'])
-    .pipe(gulp.dest(config.paths.vendor + 'bootstrap4/scss/'));
+    .pipe(gulp.dest(gulp.config.paths.vendor + 'bootstrap4/scss/'));
 
   // var4 bootstrapImages = gulp.src(['./node_modules/bootstrap-sass/assets/images'])
-    // .pipe(gulp.dest(config.paths.vendor + 'bootstrap/images/'));
+    // .pipe(gulp.dest(gulp.config.paths.vendor + 'bootstrap/images/'));
   //return merge(bootstrap4Js, bootstrap4Css, vendorCopyBs3Fonts);
 });

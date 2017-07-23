@@ -2,12 +2,15 @@
 // you can find the configurations for gulp-live-server here as well
 
 // dependencies.
-var server,
-  app = require('../index.js'),
-  debug = require('debug')('mmdb:server'),
-  http = require('http'),
+var server;
+var app = require('../index.js');
+//Unified app config vars for build and serve
+var config = require('../config.json');
+  //get gulp vars
+var debug = require('debug')('mmdb:server');
+var http = require('http');
   //port = normalizePort(process.env.PORT || '3000'); //Get port from environment and store in Express.
-  port = normalizePort('3003');
+var port = normalizePort(config.appport);
 
 //start server
 app.set('port', port);

@@ -2,9 +2,9 @@
  * Task watch
  * @info on file update, this watch runs the rewatch task for that file type
  */
-var gulp =          require('gulp');
-var config =        require('../../../../../config.json');
-var gutil =         require('gulp-util');
+var gulp =         require('gulp');
+var config =       require('../../../../../config.json');
+var gutil =        require('gulp-util');
 var runSequence =  require('run-sequence');
 
 module.exports = {

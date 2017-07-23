@@ -2,10 +2,9 @@
  * Task vendor item
  * output user message
  */
- var gulp =  require('gulp'),
-  fs = require('file-system'),
-   gutil =         require('gulp-util'),
-  config = require('../../../../../config.json');
+var gulp =  require('gulp');
+var fs =    require('file-system');
+var gutil = require('gulp-util');
 
 /**
  * Task vendor-fontawesome
@@ -16,7 +15,7 @@
  */
 gulp.task('vendor-fontawesome', function(){
   var faVarFileName = '_variables.scss',
-    faVarFile = config.paths.vendor + 'font-awesome/scss/' + faVarFileName;
+    faVarFile = gulp.config.paths.vendor + 'font-awesome/scss/' + faVarFileName;
 
   // if fa custom var file exists dont overwrite it
   if(fs.existsSync(faVarFile)) {
@@ -30,5 +29,5 @@ gulp.task('vendor-fontawesome', function(){
   return gulp.src([
      './node_modules/font-awesome/**/*.scss', //e.g. to use /**/*.ext to output 1) output all dirnames filtered by only dirs that contains a specified filetype 2) and all files in thad dir, filtered by ext type .sass
     './node_modules/font-awesome/fonts**/*.*']) // e.g. to use /keyword**/* to output 1) a specified dirname, AND 2) and all files residing in it
-    .pipe(gulp.dest(config.paths.vendor + 'font-awesome/'));
+    .pipe(gulp.dest(gulp.config.paths.vendor + 'font-awesome/'));
 });

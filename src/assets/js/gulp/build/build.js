@@ -2,10 +2,9 @@
  * Task build
  * builds out the www dir complete
  */
- var gulp =  require('gulp'),
-    runSequence =   require('run-sequence'),
-    gutil =         require('gulp-util'),
-    config = require('../../../../../config.json');
+var gulp =        require('gulp');
+var gutil =       require('gulp-util');
+var runSequence = require('run-sequence');
 
 /**
  * Task build

@@ -2,9 +2,8 @@
  * Task vendor item
  * output user message
  */
- var gulp =  require('gulp'),
-  jQueryBuilder = require('jquery-custom'),
-  config = require('../../../../../config.json');
+var gulp =          require('gulp');
+var jQueryBuilder = require('jquery-custom');
 
   /**
    * Task vendor-jquery
@@ -30,6 +29,6 @@
           basename: 'jquery-custom',
           extname:  '.js'
         }))
-        .pipe(gulp.dest(config.paths.vendor)); //want to be named jquery.js by default, messing with that will get wierd results without resetting the path or dirname robably
+        .pipe(gulp.dest(gulp.config.paths.vendor)); //want to be named jquery.js by default, messing with that will get wierd results without resetting the path or dirname robably
     })
   });
